@@ -1,4 +1,4 @@
-package com.example.Allerendys.LoyaltyPlatform;
+package it.unicam.cs.ids.Allerendys.LoyaltyPlatform;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
