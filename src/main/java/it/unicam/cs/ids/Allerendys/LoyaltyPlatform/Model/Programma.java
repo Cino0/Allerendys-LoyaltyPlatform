@@ -6,19 +6,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-
 @Data
-@Document(collection = "Tessere")
+@Document(collection = "Programmi")
 @Builder
 @AllArgsConstructor
 @Getter
 @Setter
-public class Tessera {
-
+public class Programma {
     @Id
-    private String IdTessera;
+    private String idProgramma;
 
-    private List<Iscrizioni> iscrizioni;
+    private String titolo;
 
+    private Locale locale;
+
+    private String dettaglio;
+
+    private List<Sconti> sconti;
 
 }
