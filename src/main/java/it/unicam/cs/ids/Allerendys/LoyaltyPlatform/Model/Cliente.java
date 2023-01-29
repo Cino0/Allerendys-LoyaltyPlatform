@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document(collection = "Clienti")
-@Builder
-@AllArgsConstructor
 @Getter
 @Setter
 public class Cliente {
@@ -27,9 +25,11 @@ public class Cliente {
     private String numeroTelefono;
 
 
-
-
-
-
-
+    public Cliente(String codiceFiscale, String nome, String cognome, String email, String numeroTelefono) {
+        this.codiceFiscale = codiceFiscale;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+        this.numeroTelefono = numeroTelefono;
+    }
 }
