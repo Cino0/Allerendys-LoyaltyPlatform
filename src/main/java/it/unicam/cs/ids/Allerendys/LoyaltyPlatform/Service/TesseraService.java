@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Tessera;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.TesseraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ public class TesseraService {
     {
         return null;
     }
-    public void VisualizzaSconti(){
+
+    public void VisualizzaSconti(){}
+
+    public String salvaTessera(Tessera tessera){
+        return tesseraRepository.save(tessera).getIdTessera();
     }
 }
