@@ -18,14 +18,23 @@ public class LoyaltyPlatform {
     @Autowired
     private TesseraService tesseraService;
 
-    public String registrazione(){
-        return null;
+    public String registrazione(Cliente cliente){
+        Optional<Cliente> c = clienteService.controllaDati(cliente);
+        if(c.isPresent()){
+            return "Dati gia presenti,per favore reinserire";
+        }else {
+            Tessera t = new Tessera("Id");
+            cliente.setIdTessera(t.getIdTessera());
+            clienteService.salvaCliente(cliente);
+            tesseraService.salvaTessera(t);
+        }
+        return cliente.getCodiceFiscale();
     }
 
     public String registraCliente(Cliente cliente ,String idProgramma){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
         if(c.isPresent()){
-            return "Dati Gia presenti";
+            return "Dati gia presenti,per favore reinserire";
         }else {
             Tessera t = new Tessera("idTessera");
             cliente.setIdTessera(t.getIdTessera());

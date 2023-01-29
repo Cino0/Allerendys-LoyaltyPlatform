@@ -14,8 +14,8 @@ public class Platformcontroller {
     private LoyaltyPlatform loyaltyPlatform;
 
     @PostMapping("/singin")
-    public String registrazione(){
-        return loyaltyPlatform.registrazione();
+    public String registrazione(@RequestBody Cliente cliente){
+        return loyaltyPlatform.registrazione(cliente);
     }
 
     @PostMapping("/add/{id}")
