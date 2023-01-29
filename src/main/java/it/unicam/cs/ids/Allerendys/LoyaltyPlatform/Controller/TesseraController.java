@@ -13,9 +13,9 @@ public class TesseraController {
     @Autowired
     private TesseraService tesseraService;
 
-    @RequestMapping ("/adesione")
-    public String adesioneProgramma(String idTessera){
-        return tesseraService.adesioneProgramma(idTessera);
+    @RequestMapping ("/adesione/{id}/{programma}")
+    public String adesioneProgramma(@PathVariable("id") String idTessera,@PathVariable("programma") String idProgramma){
+        return tesseraService.adesioneProgramma(idTessera,idProgramma);
     }
 
     @RequestMapping("/sconti/{id}")

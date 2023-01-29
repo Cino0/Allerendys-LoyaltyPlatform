@@ -17,11 +17,19 @@ public class TesseraService {
     @Autowired
     private TesseraRepository tesseraRepository;
 
+
+
     private ProgrammaService programmaService;
 
-    public String adesioneProgramma(String idTessera)
+    public String adesioneProgramma(String idTessera, String idProgramma)
     {
-      return null;
+        Optional<Tessera> t = tesseraRepository.findById(idTessera);
+        if(t.isPresent()){
+            t.get().addIscricione(idProgramma);
+            tesseraRepository.deleteById(idTessera);
+            this.salvaTessera(t.get());
+        }
+        return null;
     }
 
     public String VisualizzaSconti(String idTessera){
