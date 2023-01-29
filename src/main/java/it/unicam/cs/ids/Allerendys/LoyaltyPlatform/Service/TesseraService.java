@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Iscrizioni;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Locale;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Programma;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Tessera;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.TesseraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +17,28 @@ public class TesseraService {
     @Autowired
     private TesseraRepository tesseraRepository;
 
+    private ProgrammaService programmaService;
+
     public String adesioneProgramma(String idTessera)
     {
       return null;
     }
 
-    public void VisualizzaSconti(){}
+    public String VisualizzaSconti(String idTessera){
+        Optional<Tessera> t = tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr = t.get().getIscrizioni();
+        StringBuilder totSconti= new StringBuilder();
+        for (int x=0;x<iscr.size();x++){
+            String p = iscr.get(x).getProgramma();
+            Optional<Programma> prog = programmaService.getPrograma(p);
+            if(prog.isPresent()){
+                List<Sconti> sconti = prog.get().getSconti();
+                totSconti.append(sconti.stream().findAny().get().toString());
+
+            }
+        }
+        return totSconti.toString();
+    }
 
     public String salvaTessera(Tessera tessera){
         return tesseraRepository.save(tessera).getIdTessera();

@@ -2,6 +2,7 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Controller;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service.TesseraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,9 +18,9 @@ public class TesseraController {
         return tesseraService.adesioneProgramma(idTessera);
     }
 
-    @RequestMapping("/sconti")
-    public void visualizzaSconti(){
-        tesseraService.VisualizzaSconti();
+    @RequestMapping("/sconti/{id}")
+    public String visualizzaSconti(@PathVariable("id")String idTessera){
+        return tesseraService.VisualizzaSconti(idTessera);
     }
 
 }
