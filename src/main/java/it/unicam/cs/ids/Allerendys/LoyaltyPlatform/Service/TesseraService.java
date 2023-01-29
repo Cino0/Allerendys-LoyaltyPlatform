@@ -17,8 +17,6 @@ public class TesseraService {
     @Autowired
     private TesseraRepository tesseraRepository;
 
-
-
     private ProgrammaService programmaService;
 
     public String adesioneProgramma(String idTessera, String idProgramma)
