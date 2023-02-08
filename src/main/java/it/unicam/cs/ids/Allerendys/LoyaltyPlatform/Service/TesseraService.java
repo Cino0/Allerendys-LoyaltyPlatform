@@ -35,6 +35,7 @@ public class TesseraService {
         for (int x=0;x<iscr.size();x++){
             String p = iscr.get(x).getProgramma();
             Optional<Programma> prog = programmaService.getPrograma(p);
+
             if(prog.isPresent()){
                 List<Sconti> sconti = prog.get().getSconti();
                 totSconti.append(sconti.stream().findAny().get().toString());
@@ -43,18 +44,40 @@ public class TesseraService {
         }
         return totSconti.toString();
     }
-    public int VisualizzaPunti(String idTessera)
+    public String VisualizzaPunti(String idTessera)
     {
         Optional<Tessera> t=tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr=t.get().getIscrizioni();
+        StringBuilder totPunti =new StringBuilder();
         for(int i=0;i<iscr.size();i++)
         {
             String p=iscr.get(i).getProgramma();
-            if(iscr.get(i).getPunti()..equals())
+            Optional<Programma> prog =programmaService.getPrograma(p);
+            if(prog.isPresent())
+            {
+                totPunti.append(iscr.stream().findAny().get().toString());
+            }
         }
+        return totPunti.toString();
 
     }
+    public String VisualizzaLivello(String idTessera)
+    {
+        Optional<Tessera> t=tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr=t.get().getIscrizioni();
+        StringBuilder livello =new StringBuilder();
+        for(int i=0;i<iscr.size();i++)
+        {
+            String p=iscr.get(i).getProgramma();
+            Optional<Programma> prog=programmaService.getPrograma(p);
+            if(prog.isPresent())
+            {
+                livello.append(iscr.stream().findAny().toString());
+            }
 
+        }
+        return livello.toString();
+    }
     public String salvaTessera(Tessera tessera){
         return tesseraRepository.save(tessera).getIdTessera();
     }
