@@ -4,11 +4,9 @@ import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.TesseraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -44,6 +42,17 @@ public class TesseraService {
             }
         }
         return totSconti.toString();
+    }
+    public int VisualizzaPunti(String idTessera)
+    {
+        Optional<Tessera> t=tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr=t.get().getIscrizioni();
+        for(int i=0;i<iscr.size();i++)
+        {
+            String p=iscr.get(i).getProgramma();
+            if(iscr.get(i).getPunti()..equals())
+        }
+
     }
 
     public String salvaTessera(Tessera tessera){

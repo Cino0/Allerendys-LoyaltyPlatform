@@ -2,8 +2,10 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
+@Getter
 public class Iscrizioni {
 
     private String programma;

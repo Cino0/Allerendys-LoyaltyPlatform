@@ -17,4 +17,6 @@ public class Dipendente {
     private String cognome;
 
     private String localeImpiego;
+
+
 }
