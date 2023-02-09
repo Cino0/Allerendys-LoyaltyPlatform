@@ -82,7 +82,7 @@ public class TesseraService {
         return tesseraRepository.save(tessera).getIdTessera();
     }
 
-    /*public String aggiuntaSconto(String idTessera, String idSconto)
+    public String aggiuntaSconto(String idTessera, String idSconto)
     {
         Optional<Tessera> t=tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr=t.orElseThrow().getIscrizioni();
@@ -99,5 +99,5 @@ public class TesseraService {
         }
 
 
-    }*/
+    }
 }
