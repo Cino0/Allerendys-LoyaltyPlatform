@@ -13,4 +13,9 @@ public class Sconti {
     private String nome;
     private double sconto;
 
+
+    public Sconti(String idSconto)
+    {
+        this.idSconto=idSconto;
+    }
 }

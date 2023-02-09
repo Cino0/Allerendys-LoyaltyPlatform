@@ -81,4 +81,23 @@ public class TesseraService {
     public String salvaTessera(Tessera tessera){
         return tesseraRepository.save(tessera).getIdTessera();
     }
+
+    /*public String aggiuntaSconto(String idTessera, String idSconto)
+    {
+        Optional<Tessera> t=tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr=t.orElseThrow().getIscrizioni();
+        Sconti sconto=new Sconti(idSconto);
+        for(int i=0;i<iscr.size();i++)
+        {
+            String p=iscr.get(i).getProgramma();
+            Optional<Programma> prog=programmaService.getPrograma(p);
+            if(prog.isPresent())
+            {
+                prog.get().getSconti().add(sconto);
+
+            }
+        }
+
+
+    }*/
 }
