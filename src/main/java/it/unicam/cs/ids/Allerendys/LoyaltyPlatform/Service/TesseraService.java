@@ -63,6 +63,22 @@ public class TesseraService {
 
     }
 
+    public String VisualizzaCashback(String idTessera)
+    {
+        Optional<Tessera> t=tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr=t.get().getIscrizioni();
+        StringBuilder cashback= new StringBuilder();
+        for(int i=0;i<iscr.size();i++) {
+            String p=iscr.get(i).getProgramma();
+            Optional<Programma> prog=programmaService.getPrograma(p);
+            if(prog.isPresent())
+            {
+                cashback.append((iscr.stream().findAny().toString()));
+            }
+        }
+        return cashback.toString();
+    }
+
     public String VisualizzaLivello(String idTessera) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr = t.get().getIscrizioni();

@@ -28,7 +28,7 @@ public class Tessera {
     }
 
     public void addIscricione(String idProgramma){
-        Iscrizioni newIscr= new Iscrizioni(idProgramma,0,1);
+        Iscrizioni newIscr= new Iscrizioni(idProgramma,0,0,1);
         this.iscrizioni.add(newIscr);
 
 
