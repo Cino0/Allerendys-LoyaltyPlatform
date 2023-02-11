@@ -19,6 +19,8 @@ public class Tessera {
 
     private List<Iscrizioni> iscrizioni;
 
+    private List<Sconti> sconti;
+
 
     public Tessera(String idTessera) {
         this.idTessera = idTessera;
@@ -31,5 +33,9 @@ public class Tessera {
 
 
 
+    }
+
+    public void addScontoPersonale(Sconti sconti) {
+        this.sconti.add(sconti);
     }
 }
