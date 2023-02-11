@@ -1,10 +1,7 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Cliente;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Iscrizioni;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Recensione;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Tessera;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +17,12 @@ public class LoyaltyPlatform {
     private TesseraService tesseraService;
     @Autowired
     private LocaleService localiService;
+
+    @Autowired
+    private ScontiService scontiService;
+
+    @Autowired
+    private ProgrammaService programmaService;
 
     public String registrazione(Cliente cliente){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
@@ -51,5 +54,15 @@ public class LoyaltyPlatform {
     {
         localiService.aggiungiRecensione(idLocale,idCliente,recensione);
         return null;
+    }
+
+
+    public void creaSconto(int finalita, Sconti sconto, String idProgramma){
+        sconto.setFinalita(finalita);
+        scontiService.salvaSconto(sconto);
+        if(finalita==1){
+            programmaService.aggiungiScontoaProgramma(sconto,idProgramma);
+        }
+
     }
 }

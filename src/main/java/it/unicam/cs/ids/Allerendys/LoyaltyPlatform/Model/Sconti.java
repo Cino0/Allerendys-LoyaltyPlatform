@@ -5,8 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Builder
-@AllArgsConstructor
 @Getter
 @Setter
 public class Sconti
@@ -15,6 +13,13 @@ public class Sconti
     private String idSconto;
     private String nome;
     private double sconto;
+
+    private int finalita;
+
+    public Sconti(String nome,double sconto){
+        this.nome=nome;
+        this.sconto=sconto;
+    }
 
 
     public Sconti(String idSconto)

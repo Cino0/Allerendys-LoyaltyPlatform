@@ -21,4 +21,9 @@ public class ScontiService {
         Optional<Sconti> sconti= scontiRepository.findById(idSconto);
         return sconti;
     }
+
+
+    public void salvaSconto(Sconti sconto){
+        this.scontiRepository.save(sconto);
+    }
 }
