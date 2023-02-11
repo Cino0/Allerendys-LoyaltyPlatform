@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Locale;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Recensione;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.LocaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,17 @@ public class LocaleService {
 
     public Optional<Locale> getLocale(String idLocale){
         return localeRepository.findById(idLocale);
+    }
+
+    public String aggiungiRecensione(String idLocale, String idCliente, Recensione recensione)
+    {
+        Optional<Locale> l=this.getLocale(idLocale);
+        if(l.isPresent())
+        {
+            l.get().addRecensione(recensione);
+        }
+        return null;
+
     }
 
 }

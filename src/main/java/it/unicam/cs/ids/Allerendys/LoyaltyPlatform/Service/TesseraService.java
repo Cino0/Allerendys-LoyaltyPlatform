@@ -100,14 +100,13 @@ public class TesseraService {
 
     public String aggiuntaSconto(String idTessera, String idSconto) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
-        List<Iscrizioni> iscr = t.orElseThrow().getIscrizioni();
+        List<Iscrizioni> iscr = t.get().getIscrizioni();
         Optional<Sconti> sconti = scontiService.controllaSconto(idSconto);
         if (sconti.isPresent()) {
-            t.get().addScontoPersonale(sconti.get());
 
+            t.get().addScontoPersonale(sconti.get());
         }
         return null;
-
     }
 
 }

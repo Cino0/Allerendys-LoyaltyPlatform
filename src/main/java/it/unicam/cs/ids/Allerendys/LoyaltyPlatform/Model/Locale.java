@@ -26,4 +26,11 @@ public class Locale {
 
     private List<Programma> programmiFedelta;
 
+    private List<Recensione> recensioni;
+
+    public String addRecensione(Recensione recensione)
+    {
+        this.recensioni.add(recensione);
+    }
+
 }

@@ -3,6 +3,7 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Cliente;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Iscrizioni;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Recensione;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Tessera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class LoyaltyPlatform {
     private ClienteService clienteService;
     @Autowired
     private TesseraService tesseraService;
+    @Autowired
+    private LocaleService localiService;
 
     public String registrazione(Cliente cliente){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
@@ -43,5 +46,10 @@ public class LoyaltyPlatform {
             System.out.println(t.toString());
             return tesseraService.salvaTessera(t);
         }
+    }
+    public  String scriviRecensioni(String idLocale, String idCliente,Recensione recensione)
+    {
+        localiService.aggiungiRecensione(idLocale,idCliente,recensione);
+        return null;
     }
 }
