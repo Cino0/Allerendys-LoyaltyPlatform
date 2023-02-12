@@ -36,7 +36,7 @@ public class LocaleService {
     }
 
 
-    public void aggiungiSmas(String idLocale, Sms sms){
+    public void aggiungiSms(String idLocale, Sms sms){
         Optional<Locale> l= localeRepository.findById(idLocale);
         if(l.isPresent()){
             l.get().addSms(sms);

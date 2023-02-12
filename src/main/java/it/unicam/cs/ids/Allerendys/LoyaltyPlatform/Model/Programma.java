@@ -24,8 +24,6 @@ public class Programma {
 
     private List<Sconti> sconti;
 
-
-
     public void addSconti(Sconti sconto){
         this.sconti.add(sconto);
     }

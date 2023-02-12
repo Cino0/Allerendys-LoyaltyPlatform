@@ -89,7 +89,6 @@ public class TesseraService {
             if (prog.isPresent()) {
                 livello.append(iscr.stream().findAny().toString());
             }
-
         }
         return livello.toString();
     }
@@ -103,7 +102,6 @@ public class TesseraService {
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         Optional<Sconti> sconti = scontiService.controllaSconto(idSconto);
         if (sconti.isPresent()) {
-
             t.get().addScontoPersonale(sconti.get());
         }
         return null;

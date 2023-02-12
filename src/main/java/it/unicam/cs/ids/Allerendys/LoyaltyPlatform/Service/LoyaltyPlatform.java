@@ -68,6 +68,8 @@ public class LoyaltyPlatform {
 
     public void creaCampagnaSms(Sms sms,String idLocale,int finalita){
             smsService.salvaMessaggio(sms,finalita);
-
+            if(finalita==1){
+                localiService.aggiungiSms(idLocale,sms);
+            }
     }
 }
