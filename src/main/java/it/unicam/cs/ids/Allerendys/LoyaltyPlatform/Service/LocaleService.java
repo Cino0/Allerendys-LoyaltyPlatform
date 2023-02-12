@@ -2,6 +2,7 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Locale;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Recensione;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Sms;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.LocaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,13 @@ public class LocaleService {
             l.get().addRecensione(recensione);
         }
         return null;
-
     }
 
+
+    public void aggiungiSmas(String idLocale, Sms sms){
+        Optional<Locale> l= localeRepository.findById(idLocale);
+        if(l.isPresent()){
+            l.get().addSms(sms);
+        }
+    }
 }

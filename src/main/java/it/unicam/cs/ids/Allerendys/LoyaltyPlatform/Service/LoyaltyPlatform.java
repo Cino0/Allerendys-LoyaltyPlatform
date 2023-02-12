@@ -17,12 +17,12 @@ public class LoyaltyPlatform {
     private TesseraService tesseraService;
     @Autowired
     private LocaleService localiService;
-
     @Autowired
     private ScontiService scontiService;
-
     @Autowired
     private ProgrammaService programmaService;
+    @Autowired
+    private SmsService smsService;
 
     public String registrazione(Cliente cliente){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
@@ -63,6 +63,11 @@ public class LoyaltyPlatform {
         if(finalita==1){
             programmaService.aggiungiScontoaProgramma(sconto,idProgramma);
         }
+    }
+
+
+    public void creaCampagnaSms(Sms sms,String idLocale,int finalita){
+            smsService.salvaMessaggio(sms,finalita);
 
     }
 }
