@@ -26,6 +26,10 @@ public class LoyaltyPlatform {
     private SmsService smsService;
     @Autowired
     private DipendeteService dipendeteService;
+    @Autowired
+    private GestoreService gestoreService;
+    @Autowired
+    private ProprietarioService proprietarioService;
 
     public String registrazione(Cliente cliente){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
@@ -121,5 +125,23 @@ public class LoyaltyPlatform {
             return dipendeteService.salvaDipendete(dipendente);
         }
         return null;
+    }
+
+
+    public String creaUtentiSpecialiGestore(Gestore gestore){
+        Optional<Gestore> g = gestoreService.controllaDati(gestore);
+        if(g.isEmpty()){
+            return gestoreService.salvaGestore(gestore);
+        }
+        return "Dati gia presenti";
+    }
+
+
+    public String creaUtentiSpecialiProprietatio(Proprietario proprietario){
+        Optional<Proprietario> p = proprietarioService.controllaDati(proprietario);
+        if(p.isEmpty()){
+            return proprietarioService.salvaProprietario(proprietario);
+        }
+        return "Dati gia presenti";
     }
 }
