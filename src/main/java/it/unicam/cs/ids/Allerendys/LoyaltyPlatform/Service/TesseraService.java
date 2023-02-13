@@ -111,4 +111,17 @@ public class TesseraService {
         Optional<Tessera> t =this.tesseraRepository.findById(idTessera);
         return t;
     }
+
+
+    public Iscrizioni getIscrizione(String idProgramma,String idTessera){
+        Optional<Tessera> t =this.tesseraRepository.findById(idTessera);
+        if(t.isPresent()){
+            for(Iscrizioni i :t.get().getIscrizioni()){
+                if (i.getProgramma()==idProgramma){
+                    return i;
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -77,22 +77,37 @@ public class LoyaltyPlatform {
 
 
 
-    public String controlloTessera(String idTessera,String idLocale){
+    public List<Programma> controlloTessera(String idTessera,String idLocale){
        Optional<Tessera> t =tesseraService.controlloTessera(idTessera);
-       StringBuilder iscrizioni=null;
+       List<Programma> programmi = new ArrayList<>();
        if(t.isPresent()){
            List<Iscrizioni> iscr = t.get().getIscrizioni();
            for(Iscrizioni i:iscr){
                String prog =i.getProgramma();
                Optional<Programma> p = programmaService.getPrograma(prog);
-               String l=p.get().getLocale().getIdLocale();
-               if (idLocale==l){
-                   iscrizioni.append(i.toString());
+               if (idLocale==p.get().getLocale().getIdLocale()){
+                   programmi.add(p.get());
                }
            }
        }else {
-           return "Tessera inesistente";
+           return null;
        }
-       return  iscrizioni.toString();
+       return  programmi;
+    }
+
+
+
+    public String visualizzaStatus(String idTessera,String idLocale,String idProgramma){
+        List<Programma> p=this.controlloTessera(idTessera,idLocale);
+
+        if(!p.isEmpty()){
+            for(Programma prog : p){
+                if (prog.getIdProgramma()==idProgramma){
+                    Iscrizioni i =tesseraService.getIscrizione(idProgramma,idTessera);
+                    return i.visualizzaStatus();
+                }
+            }
+        }
+        return "Tessera non valida";
     }
 }

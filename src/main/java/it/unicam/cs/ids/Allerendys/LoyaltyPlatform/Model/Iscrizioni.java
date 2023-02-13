@@ -20,4 +20,14 @@ public class Iscrizioni {
         this.punti = punti;
         this.livello = livello;
     }
+
+
+
+    public String visualizzaStatus(){
+        String status = ""+this.programma.toString()+
+                ""+this.punti+
+                ""+this.livello+
+                ""+this.cashback;
+        return status;
+    }
 }
