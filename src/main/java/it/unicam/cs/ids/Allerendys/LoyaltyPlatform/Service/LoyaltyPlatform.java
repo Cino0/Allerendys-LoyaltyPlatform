@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.http.HttpRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -71,5 +73,26 @@ public class LoyaltyPlatform {
             if(finalita==1){
                 localiService.aggiungiSms(idLocale,sms);
             }
+    }
+
+
+
+    public String controlloTessera(String idTessera,String idLocale){
+       Optional<Tessera> t =tesseraService.controlloTessera(idTessera);
+       StringBuilder iscrizioni=null;
+       if(t.isPresent()){
+           List<Iscrizioni> iscr = t.get().getIscrizioni();
+           for(Iscrizioni i:iscr){
+               String prog =i.getProgramma();
+               Optional<Programma> p = programmaService.getPrograma(prog);
+               String l=p.get().getLocale().getIdLocale();
+               if (idLocale==l){
+                   iscrizioni.append(i.toString());
+               }
+           }
+       }else {
+           return "Tessera inesistente";
+       }
+       return  iscrizioni.toString();
     }
 }

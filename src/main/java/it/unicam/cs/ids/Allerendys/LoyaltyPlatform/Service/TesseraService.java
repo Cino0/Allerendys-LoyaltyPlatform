@@ -107,4 +107,8 @@ public class TesseraService {
         return null;
     }
 
+    public Optional<Tessera> controlloTessera(String idTessera) {
+        Optional<Tessera> t =this.tesseraRepository.findById(idTessera);
+        return t;
+    }
 }
