@@ -5,7 +5,6 @@ import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +24,8 @@ public class LoyaltyPlatform {
     private ProgrammaService programmaService;
     @Autowired
     private SmsService smsService;
+    @Autowired
+    private DipendeteService dipendeteService;
 
     public String registrazione(Cliente cliente){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
@@ -109,5 +110,16 @@ public class LoyaltyPlatform {
             }
         }
         return "Tessera non valida";
+    }
+
+
+
+    public String creaDipendente(String idLocale,Dipendente dipendente){
+        Optional<Dipendente> d = dipendeteService.controllaDati(dipendente);
+        if (d.isPresent()){
+            dipendente.setLocaleImpiego(idLocale);
+            return dipendeteService.salvaDipendete(dipendente);
+        }
+        return null;
     }
 }
