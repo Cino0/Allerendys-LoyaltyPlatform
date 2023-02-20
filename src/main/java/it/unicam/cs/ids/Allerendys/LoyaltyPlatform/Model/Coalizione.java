@@ -21,4 +21,11 @@ public class Coalizione {
     private Programma programma;
 
     private List<Locale> locali;
+
+
+    public void addLocale(){
+        //TODO
+    }
+
+    //TODO costruttore
 }

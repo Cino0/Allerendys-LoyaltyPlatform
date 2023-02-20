@@ -40,4 +40,14 @@ public class Locale {
         this.campagneSms.add(sms);
     }
 
+
+
+    public void addProgramma(){
+        //TODO
+    }
+
+    public void getNumProgrammi(){
+        //TODO
+    }
+
 }

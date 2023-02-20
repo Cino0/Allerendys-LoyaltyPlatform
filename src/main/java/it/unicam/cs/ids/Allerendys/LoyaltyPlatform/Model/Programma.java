@@ -24,8 +24,19 @@ public class Programma {
 
     private List<Sconti> sconti;
 
+    //TODO aggiungere policy
+
     public void addSconti(Sconti sconto){
         this.sconti.add(sconto);
     }
 
+
+    public void impostaPolicy(){
+        //TODO
+    }
+
+
+    public void applicaPolicy(){
+        //TODO
+    }
 }
