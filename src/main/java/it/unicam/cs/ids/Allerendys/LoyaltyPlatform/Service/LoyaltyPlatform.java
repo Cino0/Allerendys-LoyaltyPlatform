@@ -144,4 +144,18 @@ public class LoyaltyPlatform {
         }
         return "Dati gia presenti";
     }
+
+    public String login(String codicefiscale)
+    {
+        Optional<Cliente> c=clienteService.autenticazione(codicefiscale);
+        if(c.isPresent())
+        {
+            return "Bentornato";
+        }
+        else
+        {
+            return "Dati non corretti";
+        }
+
+    }
 }

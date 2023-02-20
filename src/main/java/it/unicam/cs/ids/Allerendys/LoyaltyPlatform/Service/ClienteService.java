@@ -27,4 +27,10 @@ public class ClienteService {
     public Optional<Cliente> controllaDati(Cliente cliente){
         return clienteRepository.findById(cliente.getCodiceFiscale());
     }
+
+
+    public Optional<Cliente> autenticazione(String codicefiscale)
+    {
+        return clienteRepository.findById(codicefiscale);
+    }
 }
