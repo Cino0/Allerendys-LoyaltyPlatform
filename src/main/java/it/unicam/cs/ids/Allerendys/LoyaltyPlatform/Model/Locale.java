@@ -26,4 +26,18 @@ public class Locale {
 
     private List<Programma> programmiFedelta;
 
+    private List<Recensione> recensioni;
+
+    private List<Sms> campagneSms;
+
+    public String addRecensione(Recensione recensione)
+    {
+        this.recensioni.add(recensione);
+        return null;
+    }
+
+    public void addSms(Sms sms){
+        this.campagneSms.add(sms);
+    }
+
 }

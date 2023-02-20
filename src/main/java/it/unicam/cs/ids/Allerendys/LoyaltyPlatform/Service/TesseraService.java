@@ -1,14 +1,13 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.ScontiRepository;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.TesseraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -19,10 +18,12 @@ public class TesseraService {
 
     private ProgrammaService programmaService;
 
-    public String adesioneProgramma(String idTessera, String idProgramma)
-    {
+    @Autowired
+    private ScontiService scontiService;
+
+    public String adesioneProgramma(String idTessera, String idProgramma) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
-        if(t.isPresent()){
+        if (t.isPresent()) {
             t.get().addIscricione(idProgramma);
             tesseraRepository.deleteById(idTessera);
             this.salvaTessera(t.get());
@@ -30,14 +31,15 @@ public class TesseraService {
         return null;
     }
 
-    public String VisualizzaSconti(String idTessera){
+    public String VisualizzaSconti(String idTessera) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr = t.get().getIscrizioni();
-        StringBuilder totSconti= new StringBuilder();
-        for (int x=0;x<iscr.size();x++){
+        StringBuilder totSconti = new StringBuilder();
+        for (int x = 0; x < iscr.size(); x++) {
             String p = iscr.get(x).getProgramma();
             Optional<Programma> prog = programmaService.getPrograma(p);
-            if(prog.isPresent()){
+
+            if (prog.isPresent()) {
                 List<Sconti> sconti = prog.get().getSconti();
                 totSconti.append(sconti.stream().findAny().get().toString());
 
@@ -46,7 +48,80 @@ public class TesseraService {
         return totSconti.toString();
     }
 
-    public String salvaTessera(Tessera tessera){
+    public String VisualizzaPunti(String idTessera) {
+        Optional<Tessera> t = tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr = t.get().getIscrizioni();
+        StringBuilder totPunti = new StringBuilder();
+        for (int i = 0; i < iscr.size(); i++) {
+            String p = iscr.get(i).getProgramma();
+            Optional<Programma> prog = programmaService.getPrograma(p);
+            if (prog.isPresent()) {
+                totPunti.append(iscr.stream().findAny().get().toString());
+            }
+        }
+        return totPunti.toString();
+
+    }
+
+    public String VisualizzaCashback(String idTessera)
+    {
+        Optional<Tessera> t=tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr=t.get().getIscrizioni();
+        StringBuilder cashback= new StringBuilder();
+        for(int i=0;i<iscr.size();i++) {
+            String p=iscr.get(i).getProgramma();
+            Optional<Programma> prog=programmaService.getPrograma(p);
+            if(prog.isPresent())
+            {
+                cashback.append((iscr.stream().findAny().toString()));
+            }
+        }
+        return cashback.toString();
+    }
+
+    public String VisualizzaLivello(String idTessera) {
+        Optional<Tessera> t = tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr = t.get().getIscrizioni();
+        StringBuilder livello = new StringBuilder();
+        for (int i = 0; i < iscr.size(); i++) {
+            String p = iscr.get(i).getProgramma();
+            Optional<Programma> prog = programmaService.getPrograma(p);
+            if (prog.isPresent()) {
+                livello.append(iscr.stream().findAny().toString());
+            }
+        }
+        return livello.toString();
+    }
+
+    public String salvaTessera(Tessera tessera) {
         return tesseraRepository.save(tessera).getIdTessera();
+    }
+
+    public String aggiuntaSconto(String idTessera, String idSconto) {
+        Optional<Tessera> t = tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr = t.get().getIscrizioni();
+        Optional<Sconti> sconti = scontiService.controllaSconto(idSconto);
+        if (sconti.isPresent()) {
+            t.get().addScontoPersonale(sconti.get());
+        }
+        return null;
+    }
+
+    public Optional<Tessera> controlloTessera(String idTessera) {
+        Optional<Tessera> t =this.tesseraRepository.findById(idTessera);
+        return t;
+    }
+
+
+    public Iscrizioni getIscrizione(String idProgramma,String idTessera){
+        Optional<Tessera> t =this.tesseraRepository.findById(idTessera);
+        if(t.isPresent()){
+            for(Iscrizioni i :t.get().getIscrizioni()){
+                if (i.getProgramma()==idProgramma){
+                    return i;
+                }
+            }
+        }
+        return null;
     }
 }

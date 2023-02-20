@@ -5,8 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document(collection = "Dipendeti")
-@Builder
-@AllArgsConstructor
+
 @Getter
 @Setter
 public class Dipendente {
@@ -17,4 +16,11 @@ public class Dipendente {
     private String cognome;
 
     private String localeImpiego;
+
+
+    public Dipendente(String idDipendente, String nome, String cognome) {
+        this.idDipendente = idDipendente;
+        this.nome = nome;
+        this.cognome = cognome;
+    }
 }

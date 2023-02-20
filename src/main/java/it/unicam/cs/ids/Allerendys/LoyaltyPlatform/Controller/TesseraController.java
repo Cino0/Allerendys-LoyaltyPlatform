@@ -23,4 +23,14 @@ public class TesseraController {
         return tesseraService.VisualizzaSconti(idTessera);
     }
 
+    @RequestMapping("{idTessera}/programma/{id}")
+    public String visualizzaPunti(@PathVariable("idTessera")String idTessera)
+    {
+        return tesseraService.VisualizzaPunti(idTessera);
+    }
+    @RequestMapping("{idTessera}/programma{id}")
+    public String visualizzaLivello(@PathVariable("idTessera")String idTessera)
+    {
+        return tesseraService.VisualizzaLivello(idTessera);
+    }
 }

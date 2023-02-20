@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Programma;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Sconti;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.ProgrammaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,13 @@ public class ProgrammaService {
 
     public Optional<Programma> getPrograma(String idProgramma){
         return programmaRepository.findById(idProgramma);
+    }
+
+
+    public void aggiungiScontoaProgramma(Sconti sconto,String idProgramma){
+        Optional<Programma> p =programmaRepository.findById(idProgramma);
+        if (p.isPresent()){
+
+        }
     }
 }

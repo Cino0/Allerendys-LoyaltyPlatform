@@ -1,13 +1,12 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Cliente;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Iscrizioni;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Tessera;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.net.http.HttpRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +16,20 @@ public class LoyaltyPlatform {
     private ClienteService clienteService;
     @Autowired
     private TesseraService tesseraService;
+    @Autowired
+    private LocaleService localiService;
+    @Autowired
+    private ScontiService scontiService;
+    @Autowired
+    private ProgrammaService programmaService;
+    @Autowired
+    private SmsService smsService;
+    @Autowired
+    private DipendeteService dipendeteService;
+    @Autowired
+    private GestoreService gestoreService;
+    @Autowired
+    private ProprietarioService proprietarioService;
 
     public String registrazione(Cliente cliente){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
@@ -43,5 +56,92 @@ public class LoyaltyPlatform {
             System.out.println(t.toString());
             return tesseraService.salvaTessera(t);
         }
+    }
+    public  String scriviRecensioni(String idLocale, String idCliente,Recensione recensione)
+    {
+        localiService.aggiungiRecensione(idLocale,idCliente,recensione);
+        return null;
+    }
+
+
+    public void creaSconto(int finalita, Sconti sconto, String idProgramma){
+        sconto.setFinalita(finalita);
+        scontiService.salvaSconto(sconto);
+        if(finalita==1){
+            programmaService.aggiungiScontoaProgramma(sconto,idProgramma);
+        }
+    }
+
+
+    public void creaCampagnaSms(Sms sms,String idLocale,int finalita){
+            smsService.salvaMessaggio(sms,finalita);
+            if(finalita==1){
+                localiService.aggiungiSms(idLocale,sms);
+            }
+    }
+
+
+
+    public List<Programma> controlloTessera(String idTessera,String idLocale){
+       Optional<Tessera> t =tesseraService.controlloTessera(idTessera);
+       List<Programma> programmi = new ArrayList<>();
+       if(t.isPresent()){
+           List<Iscrizioni> iscr = t.get().getIscrizioni();
+           for(Iscrizioni i:iscr){
+               String prog =i.getProgramma();
+               Optional<Programma> p = programmaService.getPrograma(prog);
+               if (idLocale==p.get().getLocale().getIdLocale()){
+                   programmi.add(p.get());
+               }
+           }
+       }else {
+           return null;
+       }
+       return  programmi;
+    }
+
+
+
+    public String visualizzaStatus(String idTessera,String idLocale,String idProgramma){
+        List<Programma> p=this.controlloTessera(idTessera,idLocale);
+
+        if(!p.isEmpty()){
+            for(Programma prog : p){
+                if (prog.getIdProgramma()==idProgramma){
+                    Iscrizioni i =tesseraService.getIscrizione(idProgramma,idTessera);
+                    return i.visualizzaStatus();
+                }
+            }
+        }
+        return "Tessera non valida";
+    }
+
+
+
+    public String creaDipendente(String idLocale,Dipendente dipendente){
+        Optional<Dipendente> d = dipendeteService.controllaDati(dipendente);
+        if (d.isPresent()){
+            dipendente.setLocaleImpiego(idLocale);
+            return dipendeteService.salvaDipendete(dipendente);
+        }
+        return null;
+    }
+
+
+    public String creaUtentiSpecialiGestore(Gestore gestore){
+        Optional<Gestore> g = gestoreService.controllaDati(gestore);
+        if(g.isEmpty()){
+            return gestoreService.salvaGestore(gestore);
+        }
+        return "Dati gia presenti";
+    }
+
+
+    public String creaUtentiSpecialiProprietatio(Proprietario proprietario){
+        Optional<Proprietario> p = proprietarioService.controllaDati(proprietario);
+        if(p.isEmpty()){
+            return proprietarioService.salvaProprietario(proprietario);
+        }
+        return "Dati gia presenti";
     }
 }

@@ -19,6 +19,8 @@ public class Tessera {
 
     private List<Iscrizioni> iscrizioni;
 
+    private List<Sconti> sconti;
+
 
     public Tessera(String idTessera) {
         this.idTessera = idTessera;
@@ -26,8 +28,14 @@ public class Tessera {
     }
 
     public void addIscricione(String idProgramma){
-        Iscrizioni newIscr= new Iscrizioni(idProgramma,0,1);
+        Iscrizioni newIscr= new Iscrizioni(idProgramma,0,0,1);
         this.iscrizioni.add(newIscr);
+
+
+
     }
 
+    public void addScontoPersonale(Sconti sconti) {
+        this.sconti.add(sconti);
+    }
 }
