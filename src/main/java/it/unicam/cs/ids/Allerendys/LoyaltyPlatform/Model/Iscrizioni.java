@@ -10,11 +10,11 @@ public class Iscrizioni {
 
     private String programma;
     private  int punti;
-    private int livello;
+    private String livello;
     private double cashback;
 
 
-    public Iscrizioni(String programma,int cashback, int punti, int livello) {
+    public Iscrizioni(String programma,int cashback, int punti, String livello) {
         this.programma = programma;
         this.cashback=cashback;
         this.punti = punti;
