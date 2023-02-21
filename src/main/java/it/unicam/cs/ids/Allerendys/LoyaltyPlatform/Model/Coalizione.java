@@ -23,9 +23,15 @@ public class Coalizione {
     private List<Locale> locali;
 
 
-    public void addLocale(){
-        //TODO
+    public Coalizione(String id,String nome,Programma programma, List<Locale> locali)
+    {
+        this.id=id;
+        this.nome=nome;
+        this.programma=programma;
+        this.locali=locali;
+    }
+    public void addLocale(Locale l){
+        this.locali.add(l);
     }
 
-    //TODO costruttore
 }
