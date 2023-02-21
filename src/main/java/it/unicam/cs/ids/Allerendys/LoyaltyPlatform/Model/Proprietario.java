@@ -22,5 +22,7 @@ public class Proprietario {
 
     private String pec;
 
+    private String pIVA;
+
 
 }

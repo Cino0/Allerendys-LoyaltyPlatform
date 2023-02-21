@@ -192,5 +192,16 @@ public class LoyaltyPlatform {
             return "Coalizone non esistente";
         }
     }
+    public String creaFattura(String idLocale)
+    {
+        Optional<Locale> l=localiService.getLocale(idLocale);
+        if(l.isPresent())
+        {
+
+            Optional<Proprietario> p= proprietarioService.getProprietario(l.get().getProprietario());
+
+            Fattura f=new Fattura(idLocale,p.get().getPIVA(),50.5);
+        }
+    }
 
 }

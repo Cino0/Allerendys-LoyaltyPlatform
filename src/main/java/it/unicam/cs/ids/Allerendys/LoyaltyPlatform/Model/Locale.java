@@ -46,8 +46,8 @@ public class Locale {
         //TODO
     }
 
-    public void getNumProgrammi(){
-        //TODO
+    public int getNumProgrammi(){
+        return programmiFedelta.size();
     }
 
 }
