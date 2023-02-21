@@ -30,6 +30,8 @@ public class LoyaltyPlatform {
     private GestoreService gestoreService;
     @Autowired
     private ProprietarioService proprietarioService;
+    @Autowired
+    private CoalizioneService coalizioneService;
 
     public String registrazione(Cliente cliente){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
@@ -157,5 +159,24 @@ public class LoyaltyPlatform {
             return "Dati non corretti";
         }
 
+    }
+
+    public String addProgramma(Programma programma, String idLocale)
+    {
+        Optional<Locale> l=localiService.getLocale(idLocale);
+        if(l.isPresent())
+        {
+            l.get().getProgrammiFedelta().add(programma);
+        }
+        return "programma aggiunto";
+    }
+
+    public String creaCoalizione(Coalizione coalizione,String idLocale)
+    {
+        Optional<Coalizione> c=coalizioneService.getCoalizione(idLocale);
+        if(c.isPresent())
+        {
+
+        }
     }
 }
