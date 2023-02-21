@@ -174,9 +174,6 @@ public class LoyaltyPlatform {
     public String creaCoalizione(Coalizione coalizione,String idLocale)
     {
         Optional<Coalizione> c=coalizioneService.getCoalizione(idLocale);
-        if(c.isPresent())
-        {
-
-        }
+        return coalizioneService.salvaCoalizione(coalizione);
     }
 }
