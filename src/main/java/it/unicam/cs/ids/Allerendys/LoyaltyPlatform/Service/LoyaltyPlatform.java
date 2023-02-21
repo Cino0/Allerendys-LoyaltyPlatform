@@ -197,11 +197,13 @@ public class LoyaltyPlatform {
         Optional<Locale> l=localiService.getLocale(idLocale);
         if(l.isPresent())
         {
-
+            int n= l.get().getNumProgrammi();
             Optional<Proprietario> p= proprietarioService.getProprietario(l.get().getProprietario());
-
-            Fattura f=new Fattura(idLocale,p.get().getPIVA(),50.5);
+            Fattura f=new Fattura(idLocale,p.get().getPIVA());
+            f.setCosto(n);
+            return f.toString();
         }
+        return "Locale inesistente";
     }
 
 }

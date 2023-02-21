@@ -10,14 +10,20 @@ import lombok.Setter;
 public class Fattura {
 
 
-    private String idFattura;
+    private String idLocale;
+
     private String pIVA;
     private double costo;
 
-    public Fattura(String idFattura, String pIVA, double costo)
+    public Fattura(String idLocale, String pIVA)
     {
-        this.idFattura=idFattura;
+        this.idLocale=idLocale;
         this.pIVA=pIVA;
-        this.costo=costo;
+        this.costo=50.0;
+    }
+
+
+    public void setCosto(int numProgr){
+        this.costo=costo*(double) numProgr;
     }
 }
