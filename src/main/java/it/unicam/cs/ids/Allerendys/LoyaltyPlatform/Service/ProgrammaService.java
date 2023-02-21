@@ -16,6 +16,11 @@ public class ProgrammaService {
     private ProgrammaRepository programmaRepository;
 
 
+    public String salva(Programma programma){
+        return programmaRepository.save(programma).getIdProgramma();
+    }
+
+
     public List<Programma> getProgrammi(){
         return programmaRepository.findAll();
     }

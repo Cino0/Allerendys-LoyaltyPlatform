@@ -22,7 +22,7 @@ public class Programma {
 
     private String titolo;
 
-    private Locale locale;
+    private String locale;
 
     private String dettaglio;
 

@@ -92,7 +92,7 @@ public class LoyaltyPlatform {
            for(Iscrizioni i:iscr){
                String prog =i.getProgramma();
                Optional<Programma> p = programmaService.getPrograma(prog);
-               if (idLocale==p.get().getLocale().getIdLocale()){
+               if (idLocale==p.get().getLocale()){
                    programmi.add(p.get());
                }
            }
@@ -204,6 +204,15 @@ public class LoyaltyPlatform {
             return f.toString();
         }
         return "Locale inesistente";
+    }
+
+
+    public String creaProgrammaFedelta(Programma programma,int tipologia, String idLocale){
+        programma.setLocale(idLocale);
+        programma.impostaPolicy(tipologia);
+        String esito =programmaService.salva(programma);
+        localiService.addProgramma(programma,idLocale);
+        return esito;
     }
 
 }
