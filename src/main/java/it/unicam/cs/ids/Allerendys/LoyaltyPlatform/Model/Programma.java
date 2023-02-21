@@ -51,7 +51,7 @@ public class Programma {
     }
 
 
-    public void applicaPolicy(){
-        //TODO
+    public void applicaPolicy(Iscrizioni iscrizioni ,double spesa){
+        policy.applica(iscrizioni,spesa);
     }
 }

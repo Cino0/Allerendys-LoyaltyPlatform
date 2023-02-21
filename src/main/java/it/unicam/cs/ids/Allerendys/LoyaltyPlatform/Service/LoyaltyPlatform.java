@@ -119,6 +119,19 @@ public class LoyaltyPlatform {
     }
 
 
+    public String convalidaAcquisto(String idTessera,String idLocale,String idProgramma, double spesa){
+        List<Programma> p=this.controlloTessera(idTessera,idLocale);
+        if(!p.isEmpty()){
+            for(Programma prog : p){
+                if (prog.getIdProgramma()==idProgramma){
+                    Iscrizioni i =tesseraService.getIscrizione(idProgramma,idTessera);
+                    prog.applicaPolicy(i,spesa);
+                }
+            }
+        }
+        return null;
+    }
+
 
     public String creaDipendente(String idLocale,Dipendente dipendente){
         Optional<Dipendente> d = dipendeteService.controllaDati(dipendente);
