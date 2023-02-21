@@ -20,18 +20,18 @@ public class Coalizione {
 
     private Programma programma;
 
-    private List<Locale> locali;
+    private List<String> locali;
 
 
-    public Coalizione(String id,String nome,Programma programma, List<Locale> locali)
+    public Coalizione(String id,String nome,Programma programma, List<String> locali)
     {
         this.id=id;
         this.nome=nome;
         this.programma=programma;
         this.locali=locali;
     }
-    public void addLocale(Locale l){
-        this.locali.add(l);
+    public void addLocale(String idLocale){
+        this.locali.add(idLocale);
     }
 
 }

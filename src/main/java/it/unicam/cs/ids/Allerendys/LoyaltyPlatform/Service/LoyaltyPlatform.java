@@ -161,15 +161,7 @@ public class LoyaltyPlatform {
 
     }
 
-    public String addProgramma(Programma programma, String idLocale)
-    {
-        Optional<Locale> l=localiService.getLocale(idLocale);
-        if(l.isPresent())
-        {
-            l.get().getProgrammiFedelta().add(programma);
-        }
-        return "programma aggiunto";
-    }
+
 
     public String creaCoalizione(Coalizione coalizione,String idLocale)
     {
@@ -190,7 +182,15 @@ public class LoyaltyPlatform {
         Optional<Coalizione> c=coalizioneService.getCoalizione(idLocale);
         if(c.isPresent())
         {
-            c.get().getProgramma().add
+
+            localiService.addProgramma( c.get().getProgramma(),idLocale);
+            c.get().addLocale(idLocale);
+            return "Locale aggiunto alla coalizione";
+        }
+        else
+        {
+            return "Coalizone non esistente";
         }
     }
+
 }

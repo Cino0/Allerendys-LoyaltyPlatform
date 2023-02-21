@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Locale;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Programma;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Recensione;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Sms;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.LocaleRepository;
@@ -15,6 +16,7 @@ public class LocaleService {
 
     @Autowired
     private LocaleRepository localeRepository;
+
 
 
     public List<Locale> getLocali(){
@@ -34,7 +36,15 @@ public class LocaleService {
         }
         return null;
     }
-
+    public String addProgramma(Programma programma, String idLocale)
+    {
+        Optional<Locale> l=localeRepository.findById(idLocale);
+        if(l.isPresent())
+        {
+            l.get().getProgrammiFedelta().add(programma);
+        }
+        return "programma aggiunto";
+    }
 
     public void aggiungiSms(String idLocale, Sms sms){
         Optional<Locale> l= localeRepository.findById(idLocale);
