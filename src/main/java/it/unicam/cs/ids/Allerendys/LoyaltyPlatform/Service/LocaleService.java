@@ -23,11 +23,11 @@ public class LocaleService {
         return localeRepository.findAll();
     }
 
-    public Optional<Locale> getLocale(String idLocale){
+    public Optional<Locale> getLocale(long idLocale){
         return localeRepository.findById(idLocale);
     }
 
-    public String aggiungiRecensione(String idLocale, String idCliente, Recensione recensione)
+    public String aggiungiRecensione(long idLocale, String idCliente, Recensione recensione)
     {
         Optional<Locale> l=this.getLocale(idLocale);
         if(l.isPresent())
@@ -36,7 +36,7 @@ public class LocaleService {
         }
         return null;
     }
-    public String addProgramma(Programma programma, String idLocale)
+    public String addProgramma(Programma programma, long idLocale)
     {
         Optional<Locale> l=localeRepository.findById(idLocale);
         if(l.isPresent())
@@ -46,7 +46,7 @@ public class LocaleService {
         return "programma aggiunto";
     }
 
-    public void aggiungiSms(String idLocale, Sms sms){
+    public void aggiungiSms(long idLocale, Sms sms){
         Optional<Locale> l= localeRepository.findById(idLocale);
         if(l.isPresent()){
             l.get().addSms(sms);

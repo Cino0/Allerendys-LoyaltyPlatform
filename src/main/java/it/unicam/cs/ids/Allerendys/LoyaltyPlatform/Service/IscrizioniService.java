@@ -15,7 +15,7 @@ public class IscrizioniService {
     private IscrizioniRepository iscrizioniRepository;
 
     //TODO
-    public int getNumIscritti(String idProgramma)
+    public int getNumIscritti(long idProgramma)
     {
         List<Iscrizioni> i = iscrizioniRepository.findByProgramma(idProgramma);
         return 0;

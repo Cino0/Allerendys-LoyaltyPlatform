@@ -20,23 +20,23 @@ public class Coalizione {
 
 
     @Id
-    private String id;
+    private long id;
 
     private String nome;
 
     private Programma programma;
 
-    private List<String> locali;
+    private List<Long> locali;
 
 
-    public Coalizione(String id,String nome,Programma programma, List<String> locali)
+    public Coalizione(long id,String nome,Programma programma, List<Long> locali)
     {
         this.id=id;
         this.nome=nome;
         this.programma=programma;
         this.locali=locali;
     }
-    public void addLocale(String idLocale){
+    public void addLocale(long idLocale){
         this.locali.add(idLocale);
     }
 

@@ -12,5 +12,5 @@ public interface IscrizioniRepository extends MongoRepository<Iscrizioni,String>
 
 
     @Query("{'programma':?0}")
-    List<Iscrizioni> findByProgramma(String idProgramma);
+    List<Iscrizioni> findByProgramma(long idProgramma);
 }

@@ -13,11 +13,11 @@ public class CoalizioneService {
     @Autowired
     private CoalizioneRepository coalizioneRepository;
 
-    public Optional<Coalizione> getCoalizione(String idCoalizione)
+    public Optional<Coalizione> getCoalizione(long idCoalizione)
     {
         return coalizioneRepository.findById(idCoalizione);
     }
-    public String salvaCoalizione(Coalizione coalizione){
+    public long salvaCoalizione(Coalizione coalizione){
         return coalizioneRepository.save(coalizione).getId();
     }
 }

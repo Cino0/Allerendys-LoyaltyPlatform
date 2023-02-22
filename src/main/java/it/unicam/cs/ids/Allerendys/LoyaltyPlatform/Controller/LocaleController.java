@@ -23,7 +23,7 @@ public class LocaleController {
     }
 
 
-    public Optional<Locale> getLocale(String id){
+    public Optional<Locale> getLocale(long id){
         return localeService.getLocale(id);
     }
 

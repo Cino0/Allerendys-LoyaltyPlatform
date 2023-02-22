@@ -36,7 +36,7 @@ public class TesseraService {
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         StringBuilder totSconti = new StringBuilder();
         for (int x = 0; x < iscr.size(); x++) {
-            String p = iscr.get(x).getProgramma();
+            long p = iscr.get(x).getProgramma();
             Optional<Programma> prog = programmaService.getPrograma(p);
 
             if (prog.isPresent()) {
@@ -53,7 +53,7 @@ public class TesseraService {
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         StringBuilder totPunti = new StringBuilder();
         for (int i = 0; i < iscr.size(); i++) {
-            String p = iscr.get(i).getProgramma();
+            long p = iscr.get(i).getProgramma();
             Optional<Programma> prog = programmaService.getPrograma(p);
             if (prog.isPresent()) {
                 totPunti.append(iscr.stream().findAny().get().toString());
@@ -69,7 +69,7 @@ public class TesseraService {
         List<Iscrizioni> iscr=t.get().getIscrizioni();
         StringBuilder cashback= new StringBuilder();
         for(int i=0;i<iscr.size();i++) {
-            String p=iscr.get(i).getProgramma();
+            long p=iscr.get(i).getProgramma();
             Optional<Programma> prog=programmaService.getPrograma(p);
             if(prog.isPresent())
             {
@@ -84,7 +84,7 @@ public class TesseraService {
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         StringBuilder livello = new StringBuilder();
         for (int i = 0; i < iscr.size(); i++) {
-            String p = iscr.get(i).getProgramma();
+            long p = iscr.get(i).getProgramma();
             Optional<Programma> prog = programmaService.getPrograma(p);
             if (prog.isPresent()) {
                 livello.append(iscr.stream().findAny().toString());
@@ -113,7 +113,7 @@ public class TesseraService {
     }
 
 
-    public Iscrizioni getIscrizione(String idProgramma,String idTessera){
+    public Iscrizioni getIscrizione(long idProgramma,String idTessera){
         Optional<Tessera> t =this.tesseraRepository.findById(idTessera);
         if(t.isPresent()){
             for(Iscrizioni i :t.get().getIscrizioni()){

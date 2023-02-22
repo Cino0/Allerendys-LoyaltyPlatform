@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CoalizioneRepository extends MongoRepository<Coalizione,String> {
+public interface CoalizioneRepository extends MongoRepository<Coalizione,Long> {
 }

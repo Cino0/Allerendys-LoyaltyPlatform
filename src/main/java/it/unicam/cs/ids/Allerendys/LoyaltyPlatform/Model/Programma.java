@@ -25,11 +25,11 @@ public class Programma {
     public static final String SEQUENCE_NAME = "programma_sequence";
 
     @Id
-    private String idProgramma;
+    private long idProgramma;
 
     private String titolo;
 
-    private String locale;
+    private long locale;
 
     private String dettaglio;
 

@@ -12,8 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Dipendente {
 
 
-    @Transient
-    public static final String SEQUENCE_NAME = "cubo_sequence";
 
     private String idDipendente;
 
@@ -21,7 +19,7 @@ public class Dipendente {
 
     private String cognome;
 
-    private String localeImpiego;
+    private long localeImpiego;
 
 
     public Dipendente(String idDipendente, String nome, String cognome) {

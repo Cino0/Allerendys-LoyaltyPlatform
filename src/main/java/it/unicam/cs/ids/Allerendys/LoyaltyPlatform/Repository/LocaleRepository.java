@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LocaleRepository extends MongoRepository<Locale,String> {
+public interface LocaleRepository extends MongoRepository<Locale,Long> {
 }

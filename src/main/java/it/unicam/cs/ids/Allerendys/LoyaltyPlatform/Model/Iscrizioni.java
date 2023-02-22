@@ -18,14 +18,14 @@ public class Iscrizioni {
 
     @Id
     private String id;
-    private String programma;
+    private long programma;
     private  int punti;
     private String livello;
     private double cashback;
 
 
-    public Iscrizioni(String programma,int cashback, int punti, String livello) {
-        this.programma = programma;
+    public Iscrizioni(long idProgramma,int cashback, int punti, String livello) {
+        this.programma = idProgramma;
         this.cashback=cashback;
         this.punti = punti;
         this.livello = livello;
@@ -34,7 +34,7 @@ public class Iscrizioni {
 
 
     public String visualizzaStatus(){
-        String status = ""+this.programma.toString()+
+        String status = ""+this.programma+
                 ""+this.punti+
                 ""+this.livello+
                 ""+this.cashback;

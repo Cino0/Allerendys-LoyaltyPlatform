@@ -62,14 +62,14 @@ public class LoyaltyPlatform {
             return tesseraService.salvaTessera(t);
         }
     }
-    public  String scriviRecensioni(String idLocale, String idCliente,Recensione recensione)
+    public  String scriviRecensioni(long idLocale, String idCliente,Recensione recensione)
     {
         localiService.aggiungiRecensione(idLocale,idCliente,recensione);
         return null;
     }
 
 
-    public void creaSconto(int finalita, Sconti sconto, String idProgramma){
+    public void creaSconto(int finalita, Sconti sconto, long idProgramma){
         sconto.setFinalita(finalita);
         scontiService.salvaSconto(sconto);
         if(finalita==1){
@@ -78,7 +78,7 @@ public class LoyaltyPlatform {
     }
 
 
-    public void creaCampagnaSms(Sms sms,String idLocale,int finalita){
+    public void creaCampagnaSms(Sms sms,long idLocale,int finalita){
             smsService.salvaMessaggio(sms,finalita);
             if(finalita==1){
                 localiService.aggiungiSms(idLocale,sms);
@@ -87,13 +87,13 @@ public class LoyaltyPlatform {
 
 
 
-    public List<Programma> controlloTessera(String idTessera,String idLocale){
+    public List<Programma> controlloTessera(String idTessera,long idLocale){
        Optional<Tessera> t =tesseraService.controlloTessera(idTessera);
        List<Programma> programmi = new ArrayList<>();
        if(t.isPresent()){
            List<Iscrizioni> iscr = t.get().getIscrizioni();
            for(Iscrizioni i:iscr){
-               String prog =i.getProgramma();
+               long prog =i.getProgramma();
                Optional<Programma> p = programmaService.getPrograma(prog);
                if (idLocale==p.get().getLocale()){
                    programmi.add(p.get());
@@ -107,7 +107,7 @@ public class LoyaltyPlatform {
 
 
 
-    public String visualizzaStatus(String idTessera,String idLocale,String idProgramma){
+    public String visualizzaStatus(String idTessera,long idLocale,long idProgramma){
         List<Programma> p=this.controlloTessera(idTessera,idLocale);
 
         if(!p.isEmpty()){
@@ -122,7 +122,7 @@ public class LoyaltyPlatform {
     }
 
 
-    public String convalidaAcquisto(String idTessera,String idLocale,String idProgramma, double spesa){
+    public String convalidaAcquisto(String idTessera,long idLocale,long idProgramma, double spesa){
         List<Programma> p=this.controlloTessera(idTessera,idLocale);
         if(!p.isEmpty()){
             for(Programma prog : p){
@@ -136,7 +136,7 @@ public class LoyaltyPlatform {
     }
 
 
-    public String creaDipendente(String idLocale,Dipendente dipendente){
+    public String creaDipendente(long idLocale,Dipendente dipendente){
         Optional<Dipendente> d = dipendeteService.controllaDati(dipendente);
         if (d.isPresent()){
             dipendente.setLocaleImpiego(idLocale);
@@ -188,14 +188,14 @@ public class LoyaltyPlatform {
         }
         else
         {
-            return coalizioneService.salvaCoalizione(coalizione);
+            return String.valueOf(coalizioneService.salvaCoalizione(coalizione));
 
         }
 
     }
-    public String uniscitiACoalizione(String idCoalizione,String idLocale)
+    public String uniscitiACoalizione(long idCoalizione,long idLocale)
     {
-        Optional<Coalizione> c=coalizioneService.getCoalizione(idLocale);
+        Optional<Coalizione> c=coalizioneService.getCoalizione(idCoalizione);
         if(c.isPresent())
         {
 
@@ -208,7 +208,7 @@ public class LoyaltyPlatform {
             return "Coalizone non esistente";
         }
     }
-    public String creaFattura(String idLocale)
+    public String creaFattura(long idLocale)
     {
         Optional<Locale> l=localiService.getLocale(idLocale);
         if(l.isPresent())
@@ -223,15 +223,15 @@ public class LoyaltyPlatform {
     }
 
 
-    public String creaProgrammaFedelta(Programma programma,int tipologia, String idLocale){
+    public String creaProgrammaFedelta(Programma programma,int tipologia, long idLocale){
         programma.setLocale(idLocale);
         programma.impostaPolicy(tipologia);
-        String esito =programmaService.salva(programma);
+        long esito =programmaService.salva(programma);
         localiService.addProgramma(programma,idLocale);
-        return esito;
+        return String.valueOf(esito);
     }
 
-    public String visualizzaStatistiche(String idLocale)
+    public String visualizzaStatistiche(long idLocale)
     {
         Optional<Locale> l= localiService.getLocale(idLocale);
         List<Programma> programmi = l.get().getProgrammiFedelta();

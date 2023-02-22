@@ -16,7 +16,7 @@ public class ProgrammaService {
     private ProgrammaRepository programmaRepository;
 
 
-    public String salva(Programma programma){
+    public long salva(Programma programma){
         return programmaRepository.save(programma).getIdProgramma();
     }
 
@@ -25,12 +25,12 @@ public class ProgrammaService {
         return programmaRepository.findAll();
     }
 
-    public Optional<Programma> getPrograma(String idProgramma){
+    public Optional<Programma> getPrograma(long idProgramma){
         return programmaRepository.findById(idProgramma);
     }
 
 
-    public void aggiungiScontoaProgramma(Sconti sconto,String idProgramma){
+    public void aggiungiScontoaProgramma(Sconti sconto,long idProgramma){
         Optional<Programma> p =programmaRepository.findById(idProgramma);
         if (p.isPresent()){
 

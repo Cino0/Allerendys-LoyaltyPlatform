@@ -21,7 +21,7 @@ public class Locale {
     public static final String SEQUENCE_NAME = "locale_sequence";
 
     @Id
-    private String idLocale;
+    private long idLocale;
 
     private String nome;
 

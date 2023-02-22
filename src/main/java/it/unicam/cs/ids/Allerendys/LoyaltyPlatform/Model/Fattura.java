@@ -10,12 +10,12 @@ import lombok.Setter;
 public class Fattura {
 
 
-    private String idLocale;
+    private long idLocale;
 
     private String pIVA;
     private double costo;
 
-    public Fattura(String idLocale, String pIVA)
+    public Fattura(long idLocale, String pIVA)
     {
         this.idLocale=idLocale;
         this.pIVA=pIVA;
