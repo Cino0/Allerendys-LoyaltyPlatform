@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.DbIndex.SequenceGeneratorService;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
@@ -12,6 +13,9 @@ import java.util.Optional;
 
 @Service
 public class LoyaltyPlatform {
+
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
 
     @Autowired
     private ClienteService clienteService;
@@ -41,7 +45,8 @@ public class LoyaltyPlatform {
         if(c.isPresent()){
             return "Dati gia presenti,per favore reinserire";
         }else {
-            Tessera t = new Tessera(1);
+            Tessera t = new Tessera();
+            t.setIdTessera(1);
             cliente.setIdTessera(t.getIdTessera());
             clienteService.salvaCliente(cliente);
             tesseraService.salvaTessera(t);
@@ -54,7 +59,7 @@ public class LoyaltyPlatform {
         if(c.isPresent()){
             return 0;
         }else {
-            Tessera t = new Tessera(1);
+            Tessera t = new Tessera();
             cliente.setIdTessera(t.getIdTessera());
             clienteService.salvaCliente(cliente);
             t.addIscricione(idProgramma);

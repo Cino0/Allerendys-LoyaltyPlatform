@@ -13,6 +13,7 @@ import java.util.List;
 @Document(collection = "Tessere")
 @Setter
 @Getter
+@NoArgsConstructor
 public class Tessera {
 
 
@@ -29,16 +30,10 @@ public class Tessera {
     private List<Sconti> sconti;
 
 
-    public Tessera(long idTessera) {
-        this.idTessera = idTessera;
-        this.iscrizioni = new ArrayList<>();
-    }
 
     public void addIscricione(long idProgramma){
         Iscrizioni newIscr= new Iscrizioni(idProgramma,0,0,"base");
         this.iscrizioni.add(newIscr);
-
-
 
     }
 
