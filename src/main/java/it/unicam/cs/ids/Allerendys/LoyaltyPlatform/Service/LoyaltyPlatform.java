@@ -3,6 +3,7 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class LoyaltyPlatform {
     private ProprietarioService proprietarioService;
     @Autowired
     private CoalizioneService coalizioneService;
+    @Autowired
+    private IscrizioniService iscrizioniService;
 
     public String registrazione(Cliente cliente){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
@@ -226,6 +229,19 @@ public class LoyaltyPlatform {
         String esito =programmaService.salva(programma);
         localiService.addProgramma(programma,idLocale);
         return esito;
+    }
+
+    public String visualizzaStatistiche(String idLocale)
+    {
+        Optional<Locale> l= localiService.getLocale(idLocale);
+        List<Programma> programmi = l.get().getProgrammiFedelta();
+        String statistiche = null;
+        for(int i=0;i<programmi.size();i++)
+        {
+            statistiche=programmi.get(i).getTitolo()+iscrizioniService.getNumIscritti(programmi.get(i).getIdProgramma());;
+
+        }
+        return statistiche;
     }
 
 }
