@@ -22,14 +22,14 @@ public class Tessera {
 
 
     @Id
-    private String idTessera;
+    private long idTessera;
 
     private List<Iscrizioni> iscrizioni;
 
     private List<Sconti> sconti;
 
 
-    public Tessera(String idTessera) {
+    public Tessera(long idTessera) {
         this.idTessera = idTessera;
         this.iscrizioni = new ArrayList<>();
     }

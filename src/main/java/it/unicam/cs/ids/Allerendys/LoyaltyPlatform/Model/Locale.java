@@ -49,8 +49,8 @@ public class Locale {
 
 
 
-    public void addProgramma(){
-        //TODO
+    public void addProgramma(Programma programma){
+        this.programmiFedelta.add(programma);
     }
 
     public int getNumProgrammi(){

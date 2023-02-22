@@ -19,7 +19,7 @@ public class Platformcontroller {
     }
 
     @PostMapping("/add/{id}")
-    public String registraCliente(@RequestBody Cliente cliente,@PathVariable("id") long idProgramma){
+    public long registraCliente(@RequestBody Cliente cliente,@PathVariable("id") long idProgramma){
         return loyaltyPlatform.registraCliente(cliente,idProgramma);
     }
 }

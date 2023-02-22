@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.ProgrammaRepository;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.ScontiRepository;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.TesseraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,14 @@ public class TesseraService {
     @Autowired
     private TesseraRepository tesseraRepository;
 
+    @Autowired
     private ProgrammaService programmaService;
+
 
     @Autowired
     private ScontiService scontiService;
 
-    public String adesioneProgramma(String idTessera, long idProgramma) {
+    public String adesioneProgramma(long idTessera, long idProgramma) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         if (t.isPresent()) {
             t.get().addIscricione(idProgramma);
@@ -31,7 +34,7 @@ public class TesseraService {
         return null;
     }
 
-    public String VisualizzaSconti(String idTessera) {
+    public String VisualizzaSconti(long idTessera) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         StringBuilder totSconti = new StringBuilder();
@@ -48,7 +51,7 @@ public class TesseraService {
         return totSconti.toString();
     }
 
-    public String VisualizzaPunti(String idTessera) {
+    public String VisualizzaPunti(long idTessera) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         StringBuilder totPunti = new StringBuilder();
@@ -63,7 +66,7 @@ public class TesseraService {
 
     }
 
-    public String VisualizzaCashback(String idTessera)
+    public String VisualizzaCashback(long idTessera)
     {
         Optional<Tessera> t=tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr=t.get().getIscrizioni();
@@ -79,7 +82,7 @@ public class TesseraService {
         return cashback.toString();
     }
 
-    public String VisualizzaLivello(String idTessera) {
+    public String VisualizzaLivello(long idTessera) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         StringBuilder livello = new StringBuilder();
@@ -93,11 +96,11 @@ public class TesseraService {
         return livello.toString();
     }
 
-    public String salvaTessera(Tessera tessera) {
+    public long salvaTessera(Tessera tessera) {
         return tesseraRepository.save(tessera).getIdTessera();
     }
 
-    public String aggiuntaSconto(String idTessera, long idSconto) {
+    public String aggiuntaSconto(long idTessera, long idSconto) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         Optional<Sconti> sconti = scontiService.controllaSconto(idSconto);
@@ -107,13 +110,13 @@ public class TesseraService {
         return null;
     }
 
-    public Optional<Tessera> controlloTessera(String idTessera) {
+    public Optional<Tessera> controlloTessera(long idTessera) {
         Optional<Tessera> t =this.tesseraRepository.findById(idTessera);
         return t;
     }
 
 
-    public Iscrizioni getIscrizione(long idProgramma,String idTessera){
+    public Iscrizioni getIscrizione(long idProgramma,long idTessera){
         Optional<Tessera> t =this.tesseraRepository.findById(idTessera);
         if(t.isPresent()){
             for(Iscrizioni i :t.get().getIscrizioni()){

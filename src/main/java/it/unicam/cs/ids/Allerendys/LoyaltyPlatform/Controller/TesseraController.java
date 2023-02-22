@@ -14,22 +14,22 @@ public class TesseraController {
     private TesseraService tesseraService;
 
     @RequestMapping ("/adesione/{id}/{programma}")
-    public String adesioneProgramma(@PathVariable("id") String idTessera,@PathVariable("programma") long idProgramma){
+    public String adesioneProgramma(@PathVariable("id") long idTessera,@PathVariable("programma") long idProgramma){
         return tesseraService.adesioneProgramma(idTessera,idProgramma);
     }
 
     @RequestMapping("/sconti/{id}")
-    public String visualizzaSconti(@PathVariable("id")String idTessera){
+    public String visualizzaSconti(@PathVariable("id")long idTessera){
         return tesseraService.VisualizzaSconti(idTessera);
     }
 
     @RequestMapping("{idTessera}/programma/{id}")
-    public String visualizzaPunti(@PathVariable("idTessera")String idTessera)
+    public String visualizzaPunti(@PathVariable("idTessera")long idTessera)
     {
         return tesseraService.VisualizzaPunti(idTessera);
     }
     @RequestMapping("{idTessera}/programma{id}")
-    public String visualizzaLivello(@PathVariable("idTessera")String idTessera)
+    public String visualizzaLivello(@PathVariable("idTessera")long idTessera)
     {
         return tesseraService.VisualizzaLivello(idTessera);
     }

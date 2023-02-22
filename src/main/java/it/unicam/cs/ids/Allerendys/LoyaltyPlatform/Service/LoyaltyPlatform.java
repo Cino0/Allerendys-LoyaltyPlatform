@@ -41,7 +41,7 @@ public class LoyaltyPlatform {
         if(c.isPresent()){
             return "Dati gia presenti,per favore reinserire";
         }else {
-            Tessera t = new Tessera("Id");
+            Tessera t = new Tessera(1);
             cliente.setIdTessera(t.getIdTessera());
             clienteService.salvaCliente(cliente);
             tesseraService.salvaTessera(t);
@@ -49,12 +49,12 @@ public class LoyaltyPlatform {
         return cliente.getCodiceFiscale();
     }
 
-    public String registraCliente(Cliente cliente ,long idProgramma){
+    public long registraCliente(Cliente cliente ,long idProgramma){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
         if(c.isPresent()){
-            return "Dati gia presenti,per favore reinserire";
+            return 0;
         }else {
-            Tessera t = new Tessera("idTessera");
+            Tessera t = new Tessera(1);
             cliente.setIdTessera(t.getIdTessera());
             clienteService.salvaCliente(cliente);
             t.addIscricione(idProgramma);
@@ -87,7 +87,7 @@ public class LoyaltyPlatform {
 
 
 
-    public List<Programma> controlloTessera(String idTessera,long idLocale){
+    public List<Programma> controlloTessera(long idTessera,long idLocale){
        Optional<Tessera> t =tesseraService.controlloTessera(idTessera);
        List<Programma> programmi = new ArrayList<>();
        if(t.isPresent()){
@@ -107,7 +107,7 @@ public class LoyaltyPlatform {
 
 
 
-    public String visualizzaStatus(String idTessera,long idLocale,long idProgramma){
+    public String visualizzaStatus(long idTessera,long idLocale,long idProgramma){
         List<Programma> p=this.controlloTessera(idTessera,idLocale);
 
         if(!p.isEmpty()){
@@ -122,7 +122,7 @@ public class LoyaltyPlatform {
     }
 
 
-    public String convalidaAcquisto(String idTessera,long idLocale,long idProgramma, double spesa){
+    public String convalidaAcquisto(long idTessera,long idLocale,long idProgramma, double spesa){
         List<Programma> p=this.controlloTessera(idTessera,idLocale);
         if(!p.isEmpty()){
             for(Programma prog : p){
@@ -179,7 +179,7 @@ public class LoyaltyPlatform {
 
 
 
-    public String creaCoalizione(Coalizione coalizione,String idLocale)
+    public String creaCoalizione(Coalizione coalizione,long idLocale)
     {
         Optional<Coalizione> c=coalizioneService.getCoalizione(coalizione.getId());
         if(c.isPresent())
