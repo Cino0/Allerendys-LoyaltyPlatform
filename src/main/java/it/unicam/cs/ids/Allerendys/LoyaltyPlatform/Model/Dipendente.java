@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -9,6 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 public class Dipendente {
+
+
+    @Transient
+    public static final String SEQUENCE_NAME = "cubo_sequence";
+
     private String idDipendente;
 
     private String nome;

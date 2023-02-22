@@ -2,6 +2,7 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -13,6 +14,12 @@ import java.util.List;
 @Getter
 @Setter
 public class Locale {
+
+
+
+    @Transient
+    public static final String SEQUENCE_NAME = "locale_sequence";
+
     @Id
     private String idLocale;
 

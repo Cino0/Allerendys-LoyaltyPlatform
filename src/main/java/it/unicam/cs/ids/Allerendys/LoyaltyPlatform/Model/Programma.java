@@ -6,6 +6,7 @@ import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.Policy;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.PuntiPolicy;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -17,6 +18,12 @@ import java.util.List;
 @Getter
 @Setter
 public class Programma {
+
+
+
+    @Transient
+    public static final String SEQUENCE_NAME = "programma_sequence";
+
     @Id
     private String idProgramma;
 

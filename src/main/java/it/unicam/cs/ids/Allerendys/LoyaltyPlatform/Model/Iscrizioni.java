@@ -4,10 +4,17 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 @Data
 @Getter
 public class Iscrizioni {
+
+
+
+    @Transient
+    public static final String SEQUENCE_NAME = "iscrizioni_sequence";
+
 
     @Id
     private String id;
