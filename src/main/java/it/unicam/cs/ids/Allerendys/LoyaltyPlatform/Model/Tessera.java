@@ -34,7 +34,7 @@ public class Tessera {
         this.iscrizioni = new ArrayList<>();
     }
 
-    public void addIscricione(String idProgramma){
+    public void addIscricione(long idProgramma){
         Iscrizioni newIscr= new Iscrizioni(idProgramma,0,0,"base");
         this.iscrizioni.add(newIscr);
 

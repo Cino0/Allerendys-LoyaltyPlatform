@@ -14,7 +14,7 @@ public class TesseraController {
     private TesseraService tesseraService;
 
     @RequestMapping ("/adesione/{id}/{programma}")
-    public String adesioneProgramma(@PathVariable("id") String idTessera,@PathVariable("programma") String idProgramma){
+    public String adesioneProgramma(@PathVariable("id") String idTessera,@PathVariable("programma") long idProgramma){
         return tesseraService.adesioneProgramma(idTessera,idProgramma);
     }
 

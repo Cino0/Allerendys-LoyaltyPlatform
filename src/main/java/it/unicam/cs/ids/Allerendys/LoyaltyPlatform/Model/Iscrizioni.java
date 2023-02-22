@@ -17,7 +17,7 @@ public class Iscrizioni {
 
 
     @Id
-    private String id;
+    private long id;
     private long programma;
     private  int punti;
     private String livello;

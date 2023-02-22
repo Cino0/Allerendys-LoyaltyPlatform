@@ -15,7 +15,7 @@ public class Sconti
     public static final String SEQUENCE_NAME = "sconti_sequence";
 
     @Id
-    private String idSconto;
+    private long idSconto;
     private String nome;
     private double sconto;
 
@@ -27,7 +27,7 @@ public class Sconti
     }
 
 
-    public Sconti(String idSconto)
+    public Sconti(long idSconto)
     {
         this.idSconto=idSconto;
     }

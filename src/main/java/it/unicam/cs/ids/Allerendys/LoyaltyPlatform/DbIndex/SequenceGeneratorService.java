@@ -12,9 +12,10 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Service
 public class SequenceGeneratorService {
+
     private MongoOperations mongoOperations;
 
-    @Autowired
+
     public SequenceGeneratorService(MongoOperations mongoOperations) {
         this.mongoOperations = mongoOperations;
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IscrizioniRepository extends MongoRepository<Iscrizioni,String> {
+public interface IscrizioniRepository extends MongoRepository<Iscrizioni,Long> {
 
 
     @Query("{'programma':?0}")

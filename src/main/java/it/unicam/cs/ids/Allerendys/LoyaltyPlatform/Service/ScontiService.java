@@ -16,7 +16,7 @@ public class ScontiService {
     private ScontiRepository scontiRepository;
 
 
-    public Optional<Sconti> controllaSconto(String idSconto)
+    public Optional<Sconti> controllaSconto(long idSconto)
     {
         Optional<Sconti> sconti= scontiRepository.findById(idSconto);
         return sconti;

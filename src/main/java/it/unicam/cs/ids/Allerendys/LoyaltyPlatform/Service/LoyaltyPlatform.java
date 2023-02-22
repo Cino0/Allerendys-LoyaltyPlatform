@@ -49,7 +49,7 @@ public class LoyaltyPlatform {
         return cliente.getCodiceFiscale();
     }
 
-    public String registraCliente(Cliente cliente ,String idProgramma){
+    public String registraCliente(Cliente cliente ,long idProgramma){
         Optional<Cliente> c = clienteService.controllaDati(cliente);
         if(c.isPresent()){
             return "Dati gia presenti,per favore reinserire";

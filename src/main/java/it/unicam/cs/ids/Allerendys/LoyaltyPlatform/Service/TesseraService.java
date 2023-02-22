@@ -21,7 +21,7 @@ public class TesseraService {
     @Autowired
     private ScontiService scontiService;
 
-    public String adesioneProgramma(String idTessera, String idProgramma) {
+    public String adesioneProgramma(String idTessera, long idProgramma) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         if (t.isPresent()) {
             t.get().addIscricione(idProgramma);
@@ -97,7 +97,7 @@ public class TesseraService {
         return tesseraRepository.save(tessera).getIdTessera();
     }
 
-    public String aggiuntaSconto(String idTessera, String idSconto) {
+    public String aggiuntaSconto(String idTessera, long idSconto) {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         List<Iscrizioni> iscr = t.get().getIscrizioni();
         Optional<Sconti> sconti = scontiService.controllaSconto(idSconto);
