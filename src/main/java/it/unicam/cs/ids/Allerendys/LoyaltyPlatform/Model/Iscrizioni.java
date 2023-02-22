@@ -3,11 +3,14 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
 import lombok.Data;
 import lombok.Getter;
+import org.springframework.data.annotation.Id;
 
 @Data
 @Getter
 public class Iscrizioni {
 
+    @Id
+    private String id;
     private String programma;
     private  int punti;
     private String livello;

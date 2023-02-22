@@ -5,6 +5,8 @@ import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.IscrizioniReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class IscrizioniService {
 
@@ -16,5 +18,10 @@ public class IscrizioniService {
     {
 
         return 0;
+    }
+
+    public Optional<Iscrizioni> creaIscrizione(Iscrizioni iscrizione)
+    {
+        return iscrizioniRepository.findById(iscrizione.getId());
     }
 }
