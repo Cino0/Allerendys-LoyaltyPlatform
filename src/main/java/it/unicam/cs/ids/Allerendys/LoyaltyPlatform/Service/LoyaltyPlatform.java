@@ -46,7 +46,7 @@ public class LoyaltyPlatform {
             return "Dati gia presenti,per favore reinserire";
         }else {
             Tessera t = new Tessera();
-            t.setIdTessera(1);
+            t.setIdTessera(sequenceGeneratorService.generateSequence(Tessera.SEQUENCE_NAME));
             cliente.setIdTessera(t.getIdTessera());
             clienteService.salvaCliente(cliente);
             tesseraService.salvaTessera(t);
@@ -60,6 +60,7 @@ public class LoyaltyPlatform {
             return 0;
         }else {
             Tessera t = new Tessera();
+            t.setIdTessera(sequenceGeneratorService.generateSequence(Tessera.SEQUENCE_NAME));
             cliente.setIdTessera(t.getIdTessera());
             clienteService.salvaCliente(cliente);
             t.addIscricione(idProgramma);
@@ -76,6 +77,7 @@ public class LoyaltyPlatform {
 
     public void creaSconto(int finalita, Sconti sconto, long idProgramma){
         sconto.setFinalita(finalita);
+        sconto.setIdSconto(sequenceGeneratorService.generateSequence(Sconti.SEQUENCE_NAME));
         scontiService.salvaSconto(sconto);
         if(finalita==1){
             programmaService.aggiungiScontoaProgramma(sconto,idProgramma);
@@ -114,7 +116,6 @@ public class LoyaltyPlatform {
 
     public String visualizzaStatus(long idTessera,long idLocale,long idProgramma){
         List<Programma> p=this.controlloTessera(idTessera,idLocale);
-
         if(!p.isEmpty()){
             for(Programma prog : p){
                 if (prog.getIdProgramma()==idProgramma){
@@ -184,9 +185,13 @@ public class LoyaltyPlatform {
 
 
 
-    public String creaCoalizione(Coalizione coalizione,long idLocale)
+    public String creaCoalizione(Coalizione coalizione,long idLocale, Programma programma,String nome,int tipologia)
     {
-        Optional<Coalizione> c=coalizioneService.getCoalizione(coalizione.getId());
+        long p = this.creaProgrammaFedelta(programma, tipologia, idLocale);
+        Optional<Programma> prog = programmaService.getPrograma(p);
+        Coalizione coal= new Coalizione(nome,prog.get());
+        coal.setId(sequenceGeneratorService.generateSequence(Coalizione.SEQUENCE_NAME));
+        Optional<Coalizione> c = coalizioneService.getCoalizione(coal.getId());
         if(c.isPresent())
         {
             return "Coalizone gia presente";
@@ -228,12 +233,12 @@ public class LoyaltyPlatform {
     }
 
 
-    public String creaProgrammaFedelta(Programma programma,int tipologia, long idLocale){
+    public long creaProgrammaFedelta(Programma programma,int tipologia, long idLocale){
         programma.setLocale(idLocale);
         programma.impostaPolicy(tipologia);
         long esito =programmaService.salva(programma);
         localiService.addProgramma(programma,idLocale);
-        return String.valueOf(esito);
+        return esito;
     }
 
     public String visualizzaStatistiche(long idLocale)

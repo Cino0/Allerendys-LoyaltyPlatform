@@ -29,12 +29,10 @@ public class Coalizione {
     private List<Long> locali;
 
 
-    public Coalizione(long id,String nome,Programma programma, List<Long> locali)
+    public Coalizione(String nome,Programma programma)
     {
-        this.id=id;
         this.nome=nome;
         this.programma=programma;
-        this.locali=locali;
     }
     public void addLocale(long idLocale){
         this.locali.add(idLocale);

@@ -27,8 +27,5 @@ public class Sconti
     }
 
 
-    public Sconti(long idSconto)
-    {
-        this.idSconto=idSconto;
-    }
+
 }
