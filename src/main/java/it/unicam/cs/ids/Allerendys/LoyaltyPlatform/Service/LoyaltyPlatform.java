@@ -99,8 +99,9 @@ public class LoyaltyPlatform {
     }
 
 
-    public String creaLocale(Locale locale){
+    public String creaLocale(Locale locale,String idProprietario){
         locale.setIdLocale(sequenceGeneratorService.generateSequence(Locale.SEQUENCE_NAME));
+        locale.setProprietario(idProprietario);
         Optional<Locale> l =localiService.controllaDati(locale);
         if(l.isEmpty()){
             return String.valueOf(localiService.salva(locale));

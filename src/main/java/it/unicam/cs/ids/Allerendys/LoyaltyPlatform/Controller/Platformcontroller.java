@@ -33,9 +33,9 @@ public class Platformcontroller {
 
 
 
-    @PostMapping("/locale")
-    public String creaLocale(@RequestBody Locale locale){
-         return loyaltyPlatform.creaLocale(locale);
+    @PostMapping("/locale/{id}")
+    public String creaLocale(@RequestBody Locale locale,@PathVariable("id") String idProprietario){
+         return loyaltyPlatform.creaLocale(locale,idProprietario);
     }
 
 

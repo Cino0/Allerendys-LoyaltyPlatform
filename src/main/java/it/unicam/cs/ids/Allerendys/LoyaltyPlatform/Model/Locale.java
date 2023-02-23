@@ -37,7 +37,9 @@ public class Locale {
     private List<Sms> campagneSms;
 
 
-    public Locale(String nome, String citta) {
+
+
+    public Locale(String nome, String citta,String indirizzo) {
         this.nome = nome;
         this.citta = citta;
         this.programmiFedelta = new ArrayList<>();
