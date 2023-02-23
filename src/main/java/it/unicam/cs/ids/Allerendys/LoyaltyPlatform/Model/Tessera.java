@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
-import ch.qos.logback.core.testUtil.TeeOutputStream;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;

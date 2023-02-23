@@ -17,6 +17,7 @@ public class LivelloPolicy implements Policy{
     public void applica(Iscrizioni iscrizioni, double spesa) {
         int p = iscrizioni.getPunti();
         p+=(int)spesa*100;
+        iscrizioni.setPunti(p);
         if(p>=base && p < medio){
             iscrizioni.setLivello("BASE");
         } else if (p>=medio && p < avanzato) {

@@ -78,11 +78,11 @@ public class TesseraService {
         for (int x = 0; x < iscr.size(); x++) {
             long p = iscr.get(x).getProgramma();
             Optional<Programma> prog = programmaService.getPrograma(p);
-
             if (prog.isPresent()) {
                 List<Sconti> sconti = prog.get().getSconti();
-                totSconti.append(sconti.stream().findAny().get().toString());
-
+                if(sconti.size()>0){
+                    totSconti.append(sconti.stream().findAny().get().toString());
+                }
             }
         }
         return totSconti.toString();
@@ -145,10 +145,12 @@ public class TesseraService {
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         Optional<Sconti> sconti = scontiService.controllaSconto(idSconto);
         if (sconti.isPresent()) {
-            t.get().addScontoPersonale(sconti.get());
-            List<Sconti> sc = t.get().getSconti();
-            update.set("sconti",sc);
-            mongoTemplate.updateFirst(query,update,Tessera.class);
+            if(sconti.get().getFinalita()==2){
+                t.get().addScontoPersonale(sconti.get());
+                List<Sconti> sc = t.get().getSconti();
+                update.set("sconti",sc);
+                mongoTemplate.updateFirst(query,update,Tessera.class);
+            }
         }
         return "Sconto aggiunto";
     }
@@ -169,5 +171,21 @@ public class TesseraService {
             }
         }
         return null;
+    }
+
+    public void aggiornaIscrizione(Iscrizioni iscrizione, long idTessera){
+        Query query = new Query();
+        Criteria crit = new Criteria("_id").is(idTessera);
+        Update update = new Update();
+        query.addCriteria(crit);
+        Optional<Tessera> t = tesseraRepository.findById(idTessera);
+        List<Iscrizioni> iscr = t.get().getIscrizioni();
+        for(int i =0;i<iscr.size();i++){
+            if(iscr.get(i).getId()== iscrizione.getId()){
+                iscr.set(i,iscrizione);
+            }
+        }
+        update.set("iscrizioni",iscr);
+        mongoTemplate.updateFirst(query,update, Tessera.class);
     }
 }

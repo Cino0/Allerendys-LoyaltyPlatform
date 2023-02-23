@@ -8,7 +8,11 @@ import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.LivelloPolicy;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.Policy;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.PuntiPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +21,9 @@ import java.util.Optional;
 
 @Service
 public class LoyaltyPlatform {
+
+    @Autowired
+    MongoTemplate mongoTemplate;
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
@@ -79,13 +86,14 @@ public class LoyaltyPlatform {
     }
 
 
-    public void creaSconto(int finalita, Sconti sconto, long idProgramma){
+    public long creaSconto(int finalita, Sconti sconto, long idProgramma){
         sconto.setFinalita(finalita);
         sconto.setIdSconto(sequenceGeneratorService.generateSequence(Sconti.SEQUENCE_NAME));
         scontiService.salvaSconto(sconto);
         if(finalita==1){
             programmaService.aggiungiScontoaProgramma(sconto,idProgramma);
         }
+        return sconto.getIdSconto();
     }
 
 
@@ -111,6 +119,7 @@ public class LoyaltyPlatform {
     public List<Programma> controlloTessera(long idTessera,long idLocale){
        Optional<Tessera> t =tesseraService.controlloTessera(idTessera);
        List<Programma> programmi = new ArrayList<>();
+       String p2;
        if(t.isPresent()){
            List<Iscrizioni> iscr = t.get().getIscrizioni();
            for(Iscrizioni i:iscr){
@@ -122,6 +131,9 @@ public class LoyaltyPlatform {
            }
        }else {
            return null;
+       }
+       for(Programma p1: programmi){
+           System.out.println(p1.toString());
        }
        return  programmi;
     }
@@ -143,16 +155,19 @@ public class LoyaltyPlatform {
 
 
     public String convalidaAcquisto(long idTessera,long idLocale,long idProgramma, double spesa){
+
         List<Programma> p=this.controlloTessera(idTessera,idLocale);
         if(!p.isEmpty()){
             for(Programma prog : p){
                 if (prog.getIdProgramma()==idProgramma){
                     Iscrizioni i =tesseraService.getIscrizione(idProgramma,idTessera);
-                    prog.applicaPolicy(i,spesa);
+                    Iscrizioni newIscr = prog.applicaPolicy(i,spesa);
+                    tesseraService.aggiornaIscrizione(newIscr,idTessera);
+                    return "Acquiasto convalidato";
                 }
             }
         }
-        return null;
+        return "Acquisto non convalidato";
     }
 
 

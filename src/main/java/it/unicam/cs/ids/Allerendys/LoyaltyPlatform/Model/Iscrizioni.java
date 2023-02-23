@@ -40,10 +40,10 @@ public class Iscrizioni {
 
 
     public String visualizzaStatus(){
-        String status = ""+this.programma+
-                ""+this.punti+
-                ""+this.livello+
-                ""+this.cashback;
+        String status = "Programma:"+this.programma+
+                " Punti: "+this.punti+
+                " Livello:"+this.livello+
+                " Cachback:"+this.cashback;
         return status;
     }
 }

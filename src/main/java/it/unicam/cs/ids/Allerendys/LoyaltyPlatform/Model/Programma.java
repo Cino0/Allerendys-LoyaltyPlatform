@@ -66,7 +66,8 @@ public class Programma {
     }
 
 
-    public void applicaPolicy(Iscrizioni iscrizioni ,double spesa){
+    public Iscrizioni applicaPolicy(Iscrizioni iscrizioni ,double spesa){
         policy.applica(iscrizioni,spesa);
+        return  iscrizioni;
     }
 }
