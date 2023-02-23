@@ -81,4 +81,15 @@ public class Platformcontroller {
         loyaltyPlatform.creaCampagnaSms(sms,idLocale,finaltia);
 
     }
+    @RequestMapping("/statistiche/{id}")
+    public String visualizzaStatistiche(@PathVariable ("id")long idLocale )
+    {
+        return loyaltyPlatform.visualizzaStatistiche(idLocale);
+    }
+
+    @RequestMapping("/fattura/{id}")
+    public String creaFattura(@PathVariable("id") long idLocale)
+    {
+        return loyaltyPlatform.creaFattura(idLocale);
+    }
 }

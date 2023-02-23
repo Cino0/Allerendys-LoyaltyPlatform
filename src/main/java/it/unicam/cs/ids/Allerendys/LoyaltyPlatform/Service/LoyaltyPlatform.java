@@ -250,11 +250,14 @@ public class LoyaltyPlatform {
     public String creaFattura(long idLocale)
     {
         Optional<Locale> l=localiService.getLocale(idLocale);
+        System.out.println("here");
         if(l.isPresent())
         {
             int n= l.get().getNumProgrammi();
+            System.out.println(n);
             Optional<Proprietario> p= proprietarioService.getProprietario(l.get().getProprietario());
             Fattura f=new Fattura(idLocale,p.get().getPIVA());
+            System.out.println(f.toString());
             f.setCosto(n);
             return f.toString();
         }
@@ -278,7 +281,7 @@ public class LoyaltyPlatform {
         String statistiche = null;
         for(int i=0;i<programmi.size();i++)
         {
-            statistiche=programmi.get(i).getTitolo()+iscrizioniService.getNumIscritti(programmi.get(i).getIdProgramma());;
+            statistiche=programmi.get(i).getTitolo()+" "+iscrizioniService.getNumIscritti(programmi.get(i).getIdProgramma());;
 
         }
         return statistiche;

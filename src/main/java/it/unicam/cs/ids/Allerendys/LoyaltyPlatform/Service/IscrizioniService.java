@@ -24,7 +24,7 @@ public class IscrizioniService {
     public int getNumIscritti(long idProgramma)
     {
         List<Iscrizioni> i = iscrizioniRepository.findByProgramma(idProgramma);
-        return 0;
+        return i.size();
     }
 
     public long salva(Iscrizioni iscrizione)
