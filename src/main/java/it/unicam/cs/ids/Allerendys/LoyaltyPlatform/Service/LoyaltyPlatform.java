@@ -234,7 +234,7 @@ public class LoyaltyPlatform {
         {
 
             localiService.addProgramma( c.get().getProgramma(),idLocale);
-            c.get().addLocale(idLocale);
+            coalizioneService.aggiungiLocale(c.get(),idLocale);
             return "Locale aggiunto alla coalizione";
         }
         else

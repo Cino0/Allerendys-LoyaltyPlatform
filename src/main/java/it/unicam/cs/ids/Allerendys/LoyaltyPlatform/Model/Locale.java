@@ -42,6 +42,7 @@ public class Locale {
     public Locale(String nome, String citta,String indirizzo) {
         this.nome = nome;
         this.citta = citta;
+        this.indirizzo=indirizzo;
         this.programmiFedelta = new ArrayList<>();
         this.recensioni = new ArrayList<>();
         this.campagneSms = new ArrayList<>();

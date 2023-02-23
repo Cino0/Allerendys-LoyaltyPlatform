@@ -19,7 +19,6 @@ public class Coalizione {
     @Transient
     public static final String SEQUENCE_NAME = "coalizione_sequence";
 
-
     @Id
     private long id;
 
@@ -37,6 +36,7 @@ public class Coalizione {
         this.locali= new ArrayList<>();
     }
     public void addLocale(long idLocale){
+
         this.locali.add(idLocale);
     }
 
