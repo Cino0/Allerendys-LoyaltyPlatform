@@ -2,6 +2,7 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -9,8 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class Sconti
 {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "sconti_sequence";
+
     @Id
-    private String idSconto;
+    private long idSconto;
     private String nome;
     private double sconto;
 
@@ -22,8 +27,5 @@ public class Sconti
     }
 
 
-    public Sconti(String idSconto)
-    {
-        this.idSconto=idSconto;
-    }
+
 }

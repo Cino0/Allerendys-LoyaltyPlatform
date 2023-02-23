@@ -1,21 +1,37 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Getter
+@NoArgsConstructor
+@Document(collection = "Iscrizioni")
+
 public class Iscrizioni {
 
-    private String programma;
+
+
+    @Transient
+    public static final String SEQUENCE_NAME = "iscrizioni_sequence";
+
+
+    @Id
+    private long id;
+
+    private  long tessera;
+    private long programma;
     private  int punti;
-    private int livello;
+    private String livello;
     private double cashback;
 
 
-    public Iscrizioni(String programma,int cashback, int punti, int livello) {
-        this.programma = programma;
+    public Iscrizioni(long idProgramma,int cashback, int punti, String livello,long idTessera) {
+        this.programma = idProgramma;
+        this.tessera = idTessera;
         this.cashback=cashback;
         this.punti = punti;
         this.livello = livello;
@@ -24,10 +40,10 @@ public class Iscrizioni {
 
 
     public String visualizzaStatus(){
-        String status = ""+this.programma.toString()+
-                ""+this.punti+
-                ""+this.livello+
-                ""+this.cashback;
+        String status = "Programma:"+this.programma+
+                " Punti: "+this.punti+
+                " Livello:"+this.livello+
+                " Cachback:"+this.cashback;
         return status;
     }
 }

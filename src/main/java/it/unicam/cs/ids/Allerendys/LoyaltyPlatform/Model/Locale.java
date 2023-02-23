@@ -2,19 +2,25 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Document(collection = "Locali")
-@Builder
-@AllArgsConstructor
 @Getter
 @Setter
 public class Locale {
+
+
+
+    @Transient
+    public static final String SEQUENCE_NAME = "locale_sequence";
+
     @Id
-    private String idLocale;
+    private long idLocale;
 
     private String nome;
 
@@ -30,14 +36,35 @@ public class Locale {
 
     private List<Sms> campagneSms;
 
-    public String addRecensione(Recensione recensione)
+
+
+
+    public Locale(String nome, String citta,String indirizzo) {
+        this.nome = nome;
+        this.citta = citta;
+        this.indirizzo=indirizzo;
+        this.programmiFedelta = new ArrayList<>();
+        this.recensioni = new ArrayList<>();
+        this.campagneSms = new ArrayList<>();
+    }
+
+    public void addRecensione(Recensione recensione)
     {
         this.recensioni.add(recensione);
-        return null;
     }
 
     public void addSms(Sms sms){
         this.campagneSms.add(sms);
+    }
+
+
+
+    public void addProgramma(Programma programma){
+        this.programmiFedelta.add(programma);
+    }
+
+    public int getNumProgrammi(){
+        return programmiFedelta.size();
     }
 
 }

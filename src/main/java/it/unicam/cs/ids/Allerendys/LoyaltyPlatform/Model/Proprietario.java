@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "Clienti")
+@Document(collection = "Proprietari")
 @Builder
 @AllArgsConstructor
 @Getter
@@ -21,6 +21,8 @@ public class Proprietario {
     private String cognome;
 
     private String pec;
+
+    private String pIVA;
 
 
 }

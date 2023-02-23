@@ -18,7 +18,7 @@ public class Cliente {
 
     private String cognome;
 
-    private String idTessera;
+    private long idTessera;
 
     private String email;
 

@@ -22,5 +22,12 @@ public class ProprietarioService {
 
     public String salvaProprietario(Proprietario proprietario){
         return proprietariRepository.save(proprietario).getCodiceFiscale();
+
+
+    }
+    public Optional<Proprietario> getProprietario(String idProprietario)
+    {
+        Optional<Proprietario> p=proprietariRepository.findById(idProprietario);
+        return p;
     }
 }
