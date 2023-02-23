@@ -62,9 +62,16 @@ public class LocaleService {
     }
 
     public void aggiungiSms(long idLocale, Sms sms){
+        Query query = new Query();
+        Criteria crit = new Criteria("_id").is(idLocale);
+        Update update = new Update();
+        query.addCriteria(crit);
         Optional<Locale> l= localeRepository.findById(idLocale);
         if(l.isPresent()){
             l.get().addSms(sms);
+            List<Sms> s = l.get().getCampagneSms();
+            update.set("campagneSms",s);
+            mongoTemplate.updateFirst(query,update,Locale.class);
         }
     }
 }

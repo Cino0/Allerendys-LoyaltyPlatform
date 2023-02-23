@@ -33,13 +33,18 @@ public class TesseraService {
     private ScontiService scontiService;
 
     public String adesioneProgramma(long idTessera, long idProgramma) {
+        Query query = new Query();
+        Criteria crit = new Criteria("_id").is(idTessera);
+        Update update = new Update();
+        query.addCriteria(crit);
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         if (t.isPresent()) {
             t.get().addIscricione(idProgramma);
-            tesseraRepository.deleteById(idTessera);
-            this.salvaTessera(t.get());
+            List<Iscrizioni> p = t.get().getIscrizioni();
+            update.set("iscrizioni",p);
+            mongoTemplate.updateFirst(query,update, Tessera.class);
         }
-        return null;
+        return "Programma Aggiunto";
     }
 
     public String VisualizzaSconti(long idTessera) {
@@ -121,7 +126,7 @@ public class TesseraService {
             update.set("sconti",sc);
             mongoTemplate.updateFirst(query,update,Tessera.class);
         }
-        return null;
+        return "Sconto aggiunto";
     }
 
     public Optional<Tessera> controlloTessera(long idTessera) {
