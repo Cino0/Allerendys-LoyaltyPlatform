@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -33,6 +34,7 @@ public class Coalizione {
     {
         this.nome=nome;
         this.programma=programma;
+        this.locali= new ArrayList<>();
     }
     public void addLocale(long idLocale){
         this.locali.add(idLocale);

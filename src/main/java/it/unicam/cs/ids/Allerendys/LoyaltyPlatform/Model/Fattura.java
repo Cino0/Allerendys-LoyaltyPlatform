@@ -15,10 +15,9 @@ public class Fattura {
     private String pIVA;
     private double costo;
 
-    public Fattura(long idLocale, String pIVA)
+    public Fattura(long idLocale)
     {
         this.idLocale=idLocale;
-        this.pIVA=pIVA;
         this.costo=50.0;
     }
 

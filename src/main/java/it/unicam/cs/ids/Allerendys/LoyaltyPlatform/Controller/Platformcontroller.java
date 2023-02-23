@@ -92,4 +92,44 @@ public class Platformcontroller {
     {
         return loyaltyPlatform.creaFattura(idLocale);
     }
+
+
+    @PostMapping("/propietario")
+    public String creaprop(@RequestBody Proprietario proprietario){
+       return loyaltyPlatform.creaUtentiSpecialiProprietatio(proprietario);
+    }
+    @PostMapping("/gestore")
+    public String creagest(@RequestBody Gestore gestore){
+        return loyaltyPlatform.creaUtentiSpecialiGestore(gestore);
+    }
+
+
+    @PostMapping("creac/{n}/{l}/{t}")
+    public String creaCoalizione(@RequestBody Programma programma,
+                                 @PathVariable("n")String nome,
+                                 @PathVariable("l")long idLocale,
+                                 @PathVariable("t")int tipologia){
+        return loyaltyPlatform.creaCoalizione(nome,idLocale,programma,tipologia);
+    }
+
+
+    @RequestMapping("/coalizione/{c}/{l}")
+    public String uniscitiaCoalizione(@PathVariable("c")long idCoalizione,
+                                      @PathVariable("l")long idLocale){
+        return loyaltyPlatform.uniscitiACoalizione(idCoalizione,idLocale);
+
+    }
+
+
+    @PostMapping("/creaD/{l}")
+    public String creaDipendente(@RequestBody Dipendente dipendente,@PathVariable("l")long idLocale){
+        return loyaltyPlatform.creaDipendente(idLocale,dipendente);
+    }
+
+
+    @PostMapping("scrivi/{l}/{c}")
+    public void scriviRecensione(@RequestBody Recensione recensione,@PathVariable("l")long idLocale,@PathVariable("c")long idCliente){
+        loyaltyPlatform.scriviRecensioni(idLocale,idCliente,recensione);
+    }
+
 }

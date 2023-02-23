@@ -13,6 +13,11 @@ import lombok.Setter;
 public class Recensione {
     private String titolo;
     private int stelle;
-    private String idCliente;
+    private long idCliente;
 
+
+    public Recensione(String titolo, int stelle) {
+        this.titolo = titolo;
+        this.stelle = stelle;
+    }
 }

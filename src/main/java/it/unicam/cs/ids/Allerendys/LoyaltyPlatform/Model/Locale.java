@@ -45,10 +45,9 @@ public class Locale {
         this.campagneSms = new ArrayList<>();
     }
 
-    public String addRecensione(Recensione recensione)
+    public void addRecensione(Recensione recensione)
     {
         this.recensioni.add(recensione);
-        return null;
     }
 
     public void addSms(Sms sms){

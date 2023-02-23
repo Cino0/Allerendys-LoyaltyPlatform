@@ -3,16 +3,10 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.DbIndex.SequenceGeneratorService;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.CashBackPolicy;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.LivelloPolicy;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.Policy;
-import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.PuntiPolicy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -79,10 +73,10 @@ public class LoyaltyPlatform {
             return tesseraService.salvaTessera(t);
         }
     }
-    public  String scriviRecensioni(long idLocale, String idCliente,Recensione recensione)
+    public  void scriviRecensioni(long idLocale, long idCliente,Recensione recensione)
     {
+        recensione.setIdCliente(idCliente);
         localiService.aggiungiRecensione(idLocale,idCliente,recensione);
-        return null;
     }
 
 
@@ -119,7 +113,6 @@ public class LoyaltyPlatform {
     public List<Programma> controlloTessera(long idTessera,long idLocale){
        Optional<Tessera> t =tesseraService.controlloTessera(idTessera);
        List<Programma> programmi = new ArrayList<>();
-       String p2;
        if(t.isPresent()){
            List<Iscrizioni> iscr = t.get().getIscrizioni();
            for(Iscrizioni i:iscr){
@@ -214,11 +207,12 @@ public class LoyaltyPlatform {
 
 
 
-    public String creaCoalizione(Coalizione coalizione,long idLocale, Programma programma,String nome,int tipologia)
+    public String creaCoalizione(String nome,long idLocale, Programma programma,int tipologia)
     {
         long p = this.creaProgrammaFedelta(programma, tipologia, idLocale);
         Optional<Programma> prog = programmaService.getPrograma(p);
         Coalizione coal= new Coalizione(nome,prog.get());
+        coal.addLocale(idLocale);
         coal.setId(sequenceGeneratorService.generateSequence(Coalizione.SEQUENCE_NAME));
         Optional<Coalizione> c = coalizioneService.getCoalizione(coal.getId());
         if(c.isPresent())
@@ -227,7 +221,7 @@ public class LoyaltyPlatform {
         }
         else
         {
-            return String.valueOf(coalizioneService.salvaCoalizione(coalizione));
+            return String.valueOf(coalizioneService.salvaCoalizione(coal));
 
         }
 
@@ -256,8 +250,11 @@ public class LoyaltyPlatform {
             int n= l.get().getNumProgrammi();
             System.out.println(n);
             Optional<Proprietario> p= proprietarioService.getProprietario(l.get().getProprietario());
-            Fattura f=new Fattura(idLocale,p.get().getPIVA());
-            System.out.println(f.toString());
+            System.out.println("sotto");
+            Fattura f=new Fattura(idLocale);
+            if (p.isPresent()){
+                f.setPIVA(p.get().getPIVA());
+            }
             f.setCosto(n);
             return f.toString();
         }
@@ -281,7 +278,7 @@ public class LoyaltyPlatform {
         String statistiche = null;
         for(int i=0;i<programmi.size();i++)
         {
-            statistiche=programmi.get(i).getTitolo()+" "+iscrizioniService.getNumIscritti(programmi.get(i).getIdProgramma());;
+            statistiche=programmi.get(i).getTitolo()+" "+iscrizioniService.getNumIscritti(programmi.get(i).getIdProgramma());
 
         }
         return statistiche;

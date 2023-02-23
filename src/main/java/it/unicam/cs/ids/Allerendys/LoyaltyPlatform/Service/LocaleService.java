@@ -43,12 +43,19 @@ public class LocaleService {
         return localeRepository.findById(idLocale);
     }
 
-    public String aggiungiRecensione(long idLocale, String idCliente, Recensione recensione)
+    public String aggiungiRecensione(long idLocale, long idCliente, Recensione recensione)
     {
+        Query query = new Query();
+        Criteria crit = new Criteria("_id").is(idLocale);
+        Update update = new Update();
+        query.addCriteria(crit);
         Optional<Locale> l=this.getLocale(idLocale);
         if(l.isPresent())
         {
             l.get().addRecensione(recensione);
+            List<Recensione> r= l.get().getRecensioni();
+            update.set("recensioni",r);
+            mongoTemplate.updateFirst(query,update,Locale.class);
         }
         return null;
     }
