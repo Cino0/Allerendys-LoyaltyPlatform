@@ -5,6 +5,10 @@ import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.ProgrammaRepositor
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.ScontiRepository;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.TesseraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +17,10 @@ import java.util.Optional;
 
 @Service
 public class TesseraService {
+
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Autowired
     private TesseraRepository tesseraRepository;
@@ -101,11 +109,17 @@ public class TesseraService {
     }
 
     public String aggiuntaSconto(long idTessera, long idSconto) {
+        Query query = new Query();
+        Criteria crit = new Criteria("_id").is(idTessera);
+        Update update = new Update();
+        query.addCriteria(crit);
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
-        List<Iscrizioni> iscr = t.get().getIscrizioni();
         Optional<Sconti> sconti = scontiService.controllaSconto(idSconto);
         if (sconti.isPresent()) {
             t.get().addScontoPersonale(sconti.get());
+            List<Sconti> sc = t.get().getSconti();
+            update.set("sconti",sc);
+            mongoTemplate.updateFirst(query,update,Tessera.class);
         }
         return null;
     }

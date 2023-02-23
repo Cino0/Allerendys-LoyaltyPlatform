@@ -6,6 +6,10 @@ import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Recensione;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Sms;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.LocaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +20,9 @@ public class LocaleService {
 
     @Autowired
     private LocaleRepository localeRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
 
 
@@ -38,10 +45,18 @@ public class LocaleService {
     }
     public String addProgramma(Programma programma, long idLocale)
     {
+        Query query = new Query();
+        Criteria crit = new Criteria("_id").is(idLocale);
+        Update update = new Update();
+        query.addCriteria(crit);
         Optional<Locale> l=localeRepository.findById(idLocale);
         if(l.isPresent())
         {
             l.get().getProgrammiFedelta().add(programma);
+            List<Programma> p = l.get().getProgrammiFedelta();
+            update.set("programmiFedelta",p);
+            mongoTemplate.updateFirst(query,update,Locale.class);
+
         }
         return "programma aggiunto";
     }
