@@ -2,8 +2,11 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Controller;
 
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Cliente;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Locale;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Programma;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service.LoyaltyPlatform;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,5 +24,23 @@ public class Platformcontroller {
     @PostMapping("/add/{id}")
     public long registraCliente(@RequestBody Cliente cliente,@PathVariable("id") long idProgramma){
         return loyaltyPlatform.registraCliente(cliente,idProgramma);
+    }
+
+    @RequestMapping("/login/{id}")
+    public String login(@PathVariable("id")String idCliennte){
+        return loyaltyPlatform.login(idCliennte);
+    }
+
+
+
+    @PostMapping("/locale")
+    public String creaLocale(@RequestBody Locale locale){
+         return loyaltyPlatform.creaLocale(locale);
+    }
+
+
+    @PostMapping("/programma/{tipo}/{locale}")
+    public long creaProgramma(@RequestBody Programma programma,@PathVariable("tipo") int tipo,@PathVariable("locale")long idLocale){
+        return loyaltyPlatform.creaProgrammaFedelta(programma,tipo,idLocale);
     }
 }

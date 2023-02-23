@@ -6,6 +6,7 @@ import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Recensione;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Sms;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.LocaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -25,6 +26,14 @@ public class LocaleService {
     private MongoTemplate mongoTemplate;
 
 
+
+    public Optional<Locale> controllaDati(Locale locale){
+        return localeRepository.findById(locale.getIdLocale());
+    }
+
+    public long salva(Locale locale){
+        return localeRepository.save(locale).getIdLocale();
+    }
 
     public List<Locale> getLocali(){
         return localeRepository.findAll();

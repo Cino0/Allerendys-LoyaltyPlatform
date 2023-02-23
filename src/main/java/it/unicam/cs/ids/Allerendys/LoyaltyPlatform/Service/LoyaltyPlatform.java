@@ -3,6 +3,10 @@ package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.DbIndex.SequenceGeneratorService;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.CashBackPolicy;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.LivelloPolicy;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.Policy;
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Policy.PuntiPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
 import org.springframework.stereotype.Service;
@@ -90,6 +94,16 @@ public class LoyaltyPlatform {
             if(finalita==1){
                 localiService.aggiungiSms(idLocale,sms);
             }
+    }
+
+
+    public String creaLocale(Locale locale){
+        locale.setIdLocale(sequenceGeneratorService.generateSequence(Locale.SEQUENCE_NAME));
+        Optional<Locale> l =localiService.controllaDati(locale);
+        if(l.isEmpty()){
+            return String.valueOf(localiService.salva(locale));
+        }
+        return "Locale esistente";
     }
 
 
@@ -235,6 +249,7 @@ public class LoyaltyPlatform {
 
     public long creaProgrammaFedelta(Programma programma,int tipologia, long idLocale){
         programma.setLocale(idLocale);
+        programma.setIdProgramma(sequenceGeneratorService.generateSequence(Programma.SEQUENCE_NAME));
         programma.impostaPolicy(tipologia);
         long esito =programmaService.salva(programma);
         localiService.addProgramma(programma,idLocale);

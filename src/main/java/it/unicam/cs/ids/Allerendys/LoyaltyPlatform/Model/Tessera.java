@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model;
 
+import ch.qos.logback.core.testUtil.TeeOutputStream;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -13,7 +14,6 @@ import java.util.List;
 @Document(collection = "Tessere")
 @Setter
 @Getter
-@NoArgsConstructor
 public class Tessera {
 
 
@@ -29,12 +29,15 @@ public class Tessera {
 
     private List<Sconti> sconti;
 
+    public Tessera(){
+        this.iscrizioni= new ArrayList<>(1000);
+        this.sconti = new ArrayList<>(1000);
+    }
 
-
-    public void addIscricione(long idProgramma){
-        Iscrizioni newIscr= new Iscrizioni(idProgramma,0,0,"base");
+    public Iscrizioni addIscricione(long idProgramma){
+        Iscrizioni newIscr= new Iscrizioni(idProgramma,0,0,"base",this.idTessera);
         this.iscrizioni.add(newIscr);
-
+        return newIscr;
     }
 
     public void addScontoPersonale(Sconti sconti) {

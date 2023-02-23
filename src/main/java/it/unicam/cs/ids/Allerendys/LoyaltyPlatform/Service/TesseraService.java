@@ -1,15 +1,18 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service;
 
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.DbIndex.SequenceGeneratorService;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.*;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.ProgrammaRepository;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.ScontiRepository;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Repository.TesseraRepository;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,14 +26,26 @@ public class TesseraService {
     private MongoTemplate mongoTemplate;
 
     @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
+
+    @Autowired
     private TesseraRepository tesseraRepository;
 
     @Autowired
     private ProgrammaService programmaService;
 
+    @Autowired
+    IscrizioniService iscrizioniService;
+
 
     @Autowired
     private ScontiService scontiService;
+
+
+    public Tessera getTessera(long idTessera){
+        Optional<Tessera> t = tesseraRepository.findById(idTessera);
+        return t.get();
+    }
 
     public String adesioneProgramma(long idTessera, long idProgramma) {
         Query query = new Query();
@@ -39,7 +54,16 @@ public class TesseraService {
         query.addCriteria(crit);
         Optional<Tessera> t = tesseraRepository.findById(idTessera);
         if (t.isPresent()) {
-            t.get().addIscricione(idProgramma);
+            List<Iscrizioni> iscr = t.get().getIscrizioni();
+            for(Iscrizioni i : iscr){
+                System.out.println(i.toString());
+                if (i.getProgramma()==idProgramma){
+                    return "Sei gia iscritto a questo programma";
+                }
+            }
+            Iscrizioni i = t.get().addIscricione(idProgramma);
+            i.setId(sequenceGeneratorService.generateSequence(Iscrizioni.SEQUENCE_NAME));
+            iscrizioniService.salva(i);
             List<Iscrizioni> p = t.get().getIscrizioni();
             update.set("iscrizioni",p);
             mongoTemplate.updateFirst(query,update, Tessera.class);

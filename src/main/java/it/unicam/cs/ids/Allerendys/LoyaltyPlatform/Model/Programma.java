@@ -9,12 +9,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Document(collection = "Programmi")
-@Builder
-@AllArgsConstructor
+
 @Getter
 @Setter
 public class Programma {
@@ -36,6 +36,14 @@ public class Programma {
     private List<Sconti> sconti;
 
     private Policy policy;
+
+
+    public Programma(String titolo, String dettaglio) {
+        this.titolo = titolo;
+        this.dettaglio = dettaglio;
+        this.sconti=new ArrayList<>();
+    }
+
     public void addSconti(Sconti sconto){
         this.sconti.add(sconto);
     }

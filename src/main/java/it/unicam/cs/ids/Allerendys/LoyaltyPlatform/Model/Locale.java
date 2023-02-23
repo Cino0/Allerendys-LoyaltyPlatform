@@ -5,12 +5,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Document(collection = "Locali")
-@Builder
-@AllArgsConstructor
 @Getter
 @Setter
 public class Locale {
@@ -36,6 +35,15 @@ public class Locale {
     private List<Recensione> recensioni;
 
     private List<Sms> campagneSms;
+
+
+    public Locale(String nome, String citta) {
+        this.nome = nome;
+        this.citta = citta;
+        this.programmiFedelta = new ArrayList<>();
+        this.recensioni = new ArrayList<>();
+        this.campagneSms = new ArrayList<>();
+    }
 
     public String addRecensione(Recensione recensione)
     {

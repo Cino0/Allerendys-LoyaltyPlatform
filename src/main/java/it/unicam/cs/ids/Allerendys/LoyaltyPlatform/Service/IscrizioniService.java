@@ -21,8 +21,8 @@ public class IscrizioniService {
         return 0;
     }
 
-    public Optional<Iscrizioni> creaIscrizione(Iscrizioni iscrizione)
+    public long salva(Iscrizioni iscrizione)
     {
-        return iscrizioniRepository.findById(iscrizione.getId());
+        return iscrizioniRepository.save(iscrizione).getId();
     }
 }

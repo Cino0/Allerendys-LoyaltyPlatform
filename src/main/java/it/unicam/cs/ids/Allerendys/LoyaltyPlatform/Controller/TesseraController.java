@@ -1,7 +1,10 @@
 package it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Controller;
 
+import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Model.Tessera;
 import it.unicam.cs.ids.Allerendys.LoyaltyPlatform.Service.TesseraService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +15,13 @@ public class TesseraController {
 
     @Autowired
     private TesseraService tesseraService;
+
+
+
+    @GetMapping("/{id}")
+    public Tessera getT(@PathVariable("id")long idTessera){
+       return tesseraService.getTessera(idTessera);
+    }
 
     @RequestMapping ("/adesione/{id}/{programma}")
     public String adesioneProgramma(@PathVariable("id") long idTessera,@PathVariable("programma") long idProgramma){
@@ -33,4 +43,5 @@ public class TesseraController {
     {
         return tesseraService.VisualizzaLivello(idTessera);
     }
+
 }
