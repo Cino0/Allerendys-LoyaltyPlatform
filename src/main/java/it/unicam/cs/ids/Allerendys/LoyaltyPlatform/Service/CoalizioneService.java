@@ -41,7 +41,7 @@ public class CoalizioneService {
             List<Long> l = c.get().getLocali();
             l.add(idLocale);
             update.set("locali",l);
-            mongoTemplate.updateFirst(query,update, Tessera.class);
+            mongoTemplate.updateFirst(query,update, Coalizione.class);
         }
     }
 }
